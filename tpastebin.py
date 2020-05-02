@@ -1,6 +1,5 @@
 import os
 import argparse
-import configparser
 import requests
 
 APP_NAME = 'tpastebin'
@@ -14,34 +13,26 @@ RAW_URL = 'https://pastebin.com/api/api_raw.php'
 
 class Config():
     def __init__(self):
-        self.config = configparser.ConfigParser()
-
-        self.config_file = HOME + '/.config/' + APP_NAME + '/config' \
+        self._dev_key_file = HOME + '/.config/' + APP_NAME + '/dev_key' \
                 if XDG_CONFIG_HOME == None \
-                else XDG_CONFIG_HOME + '/' + APP_NAME + '/config'
+                else XDG_CONFIG_HOME + '/' + APP_NAME + '/dev_key'
 
-    def read_config(self): 
-        self.config.read(self.config_file)
+    def read_dev_key(self): 
+        file_ref = open(self._dev_key_file, 'r')
 
-        self.api_key = self.config.get('API', 'KEY', raw=False)
-        try:
-            self.users = dict(self.config['USERS'])
-        except KeyError:
-            self.users = None
-            
-        return {'api_key': api_key, 'users': users}
+        self._dev_key = file_ref.readline().rstrip('\r\n')
+        file_ref.close()
 
-class Pastebin():
-    def __init__(self, config):
-       pass 
+        return self._dev_key 
 
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Pastebin on terminal.')
+    parser = argparse.ArgumentParser(prog=APP_NAME,
+                                     description='Pastebin on terminal.')
     
     conf = Config()
 
-    conf.read_config()
+    print(conf.read_dev_key())
 
 
