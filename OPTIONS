@@ -1,0 +1,55 @@
+-> Create a new paste;
+	[Required]
+	api_dev_key (access key)
+	api_option (set as 'paste')
+	api_paste_code (text)
+
+	[Optional]
+	api_user_key (user posting the paste, if blank posts as guest)
+	api_paste_name (paste name)
+	api_paste_format (syntax highlighting)
+	api_paste_private (public, unlisted, private)
+	api_paste_expire_date (expiration time)
+
+	On success
+	returns: paste link
+
+-> Get api_user_key 
+	[Required]
+	api_dev_key (access key)
+	api_user_name (username)
+	api_user_password (password)
+
+	On success
+	returns: api_user_key
+
+-> Listing pastes created by an user
+	[Required]
+	api_dev_key (access_key)
+	api_user_key (user key)
+	api_results_limit (max number of results)
+	api_option (set as 'list')
+
+	On success:
+	returns: pasting list
+	returns: 'No pastes found'
+
+-> Deleting a paste created by an user
+	[Required]
+	api_dev_key (access_key)
+	api_user_key (user key)
+	api_paste_key (unique key of the paste that will be deleted)
+	api_option (set as 'delete')
+
+-> Getting user information and settings
+	[Required]
+	api_dev_key (access_key)
+	api_user_key (user key)
+	api_option (set as 'userdetails')
+
+-> Getting raw paste of
+	[Required]
+	api_dev_key (access_key)
+	api_user_key (user key)
+	api_paste_key (key for paste to be obtained)
+	api_option (set as 'show_paste')
