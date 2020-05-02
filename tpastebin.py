@@ -10,6 +10,7 @@ XDG_CONFIG_HOME = os.getenv('XDG_CONFIG_HOME')
 
 POST_URL = 'https://pastebin.com/api/api_post.php'
 LOGIN_URL = 'https://pastebin.com/api/api_login.php'
+RAW_URL = 'https://pastebin.com/api/api_raw.php'
 
 class Config():
     def __init__(self):
