@@ -14,6 +14,20 @@
 	On success
 	returns: paste link
 
+	On error, returns
+	Bad API request, invalid api_option
+	Bad API request, invalid api_dev_key
+	Bad API request, IP blocked
+	Bad API request, maximum number of 25 unlisted pastes for your free account
+	Bad API request, maximum number of 10 private pastes for your free account
+	Bad API request, api_paste_code was empty
+	Bad API request, maximum paste file size exceeded
+	Bad API request, invalid api_expire_date
+	Bad API request, invalid api_paste_private
+	Bad API request, invalid api_paste_format
+	Bad API request, invalid api_user_key
+	Bad API request, invalid or expired api_user_key
+
 -> Get api_user_key 
 	[Required]
 	api_dev_key (access key)
@@ -22,6 +36,13 @@
 
 	On success
 	returns: api_user_key
+
+	On error, returns
+	Bad API request, use POST request, not GET
+	Bad API request, invalid api_dev_key
+	Bad API request, invalid login
+	Bad API request, account not active
+	Bad API request, invalid POST parameters
 
 -> Listing pastes created by an user
 	[Required]
@@ -34,6 +55,11 @@
 	returns: pasting list
 	returns: 'No pastes found'
 
+	On error, returns:
+	Bad API request, invalid api_option
+	Bad API request, invalid api_dev_key
+	Bad API request, invalid api_user_key
+
 -> Deleting a paste created by an user
 	[Required]
 	api_dev_key (access_key)
@@ -41,11 +67,28 @@
 	api_paste_key (unique key of the paste that will be deleted)
 	api_option (set as 'delete')
 
+	On sucess:
+	returns: Paste Removed
+
+	On error, returns:
+	Bad API request, invalid api_option
+	Bad API request, invalid api_dev_key
+	Bad API request, invalid api_user_key
+	Bad API request, invalid permission to remove paste
+
 -> Getting user information and settings
 	[Required]
 	api_dev_key (access_key)
 	api_user_key (user key)
 	api_option (set as 'userdetails')
+
+	On success:
+	returns: user info
+
+	On error, returns:
+	Bad API request, invalid api_option
+	Bad API request, invalid api_dev_key
+	Bad API request, invalid api_user_key
 
 -> Getting raw paste of
 	[Required]
@@ -53,3 +96,12 @@
 	api_user_key (user key)
 	api_paste_key (key for paste to be obtained)
 	api_option (set as 'show_paste')
+
+	On success:
+	returns: raw paste content
+
+	On error, returns:
+	Bad API request, invalid api_option
+	Bad API request, invalid api_dev_key
+	Bad API request, invalid api_user_key
+	Bad API request, invalid permission to view this paste or invalid api_paste_key
