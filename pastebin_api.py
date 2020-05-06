@@ -8,6 +8,7 @@ class Pastebin():
     def __init__(self, dev_key):
         self.__dev_key = dev_key
 
+
     def __output_string(val):
         return { 'content': val.decode('UTF-8') }
 
@@ -22,7 +23,6 @@ class Pastebin():
             ret_dict['content'].append(tmp_dict)
 
         return ret_dict
-
             
 
     def create_api_user_key(self, api_user_name, api_user_password):
@@ -33,7 +33,7 @@ class Pastebin():
         }
 
 
-        return (LOGIN_URL, payload, __output_string)
+        return (LOGIN_URL, payload, self.__output_string)
 
     def create_paste(self, api_paste_code, api_user_key='',
                      api_paste_format='', api_paste_private='',
@@ -48,7 +48,7 @@ class Pastebin():
                 'api_paste_expire_date': api_paste_expire_date
         }
 
-        return (POST_URL, payload, __output_string)
+        return (POST_URL, payload, self.__output_string)
 
     def list_user_pastes(self, api_user_key, api_results_limit=''):
         payload = {
@@ -58,7 +58,7 @@ class Pastebin():
                 'api_results_limit': api_results_limit
         }
 
-        return (POST_URL, payload, __output_xml)
+        return (POST_URL, payload, self.__output_xml)
 
     def delete_user_paste(self, api_user_key, api_paste_key):
         payload = {
@@ -68,7 +68,7 @@ class Pastebin():
                 'api_paste_key': api_paste_key
         }
 
-        return (POST_URL, payload, __output_string)
+        return (POST_URL, payload, self.__output_string)
 
     def get_user_info(self, api_user_key):
         payload = {
@@ -78,7 +78,7 @@ class Pastebin():
 
         }
 
-        return (POST_URL, payload, __output_xml)
+        return (POST_URL, payload, self.__output_xml)
 
     def get_raw_paste(self, api_user_key, api_paste_key):
         payload = {
@@ -88,4 +88,4 @@ class Pastebin():
                 'api_paste_key': api_paste_key
         }
 
-        return (RAW_URL, payload, __output_string)
+        return (RAW_URL, payload, self.__output_string)
