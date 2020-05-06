@@ -10,7 +10,7 @@ class BadApiRequest(Exception):
 def get():
     pass
 
-def post(url, payload):
+def post(url, payload, parse_method):
     response = requests.post(url, payload).decode('utf-8')
 
     if bool(re.match(BAD_REQUEST_URL, response, re.I)):
