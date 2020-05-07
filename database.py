@@ -8,6 +8,7 @@ class Database:
         self.cursor = self.connection.cursor()
 
 class User(Database):
+    # Default operations
     CREATE = """
         INSERT INTO user
         (user_name, user_key, user_format_short, user_expiration,
@@ -18,6 +19,24 @@ class User(Database):
     READ = """
         SELECT * FROM user
         WHERE (user_name = ?);
+    """
+    UPDATE = """
+        UPDATE user
+        SET user_key = ?, user_format_short = ?, user_expiration = ?,
+        user_avatar_url = ?, user_private = ?, user_website = ?,
+        user_email = ?, user_location = ?, user_account_type = ?
+        WHERE user_name = ?;
+    """
+    DELETE = """
+        DELETE FROM user
+        WHERE user_name = ?;
+    """
+
+    # Extra operations
+    UPDATE_KEY = """
+        UPDATE user
+        SET user_key = ?
+        WHERE user_name = ?;
     """
     ALL = """
         SELECT * FROM user;
@@ -56,6 +75,7 @@ class User(Database):
 
 
 class PasteInfo(Database):
+    # Default operations
     CREATE = """
         INSERT INTO paste_info
         (paste_key, owner, paste_date, paste_size, paste_expire_date,
@@ -67,6 +87,19 @@ class PasteInfo(Database):
         SELECT * FROM paste_info
         WHERE (paste_key = ?);
     """
+    UPDATE = """
+        UPDATE paste_info
+        SET owner = ?, paste_date = ?, paste_size = ?, paste_expire_date = ?,
+        paste_private = ?, paste_format_long = ?, paste_format_short = ?,
+        paste_url = ?, paste_hits = ?
+        WHERE paste_key = ?;
+    """
+    DELETE = """
+        DELETE FROM paste_info
+        WHERE paste_key = ?;
+    """
+
+    # Extra operations
     ALL = """
         SELECT * FROM paste_info;
     """
@@ -100,6 +133,7 @@ class PasteInfo(Database):
         return [dict(e) for e in result] if result is not None else None
 
 class PasteText(Database):
+    # Default operations
     CREATE = """
         INSERT INTO paste_text (paste_key, paste)
         VALUES (?, ?);
@@ -108,6 +142,17 @@ class PasteText(Database):
         SELECT * FROM paste_text
         WHERE (paste_key = ?);
     """
+    UPDATE = """
+        UPDATE paste_text
+        SET paste = ?
+        WHERE paste_key = ?;
+    """
+    DELETE = """
+        DELETE FROM paste_text
+        WHERE paste_key = ?;
+    """
+
+    # Extra operations
     ALL = """
         SELECT * FROM paste_text;
     """
