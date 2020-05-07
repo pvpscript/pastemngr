@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS user (
 	user_location VARCHAR(255),
 	user_account_type INT NOT NULL,
 
-	CONSTRAINT pk_user PRIMARY KEY(username)
+	CONSTRAINT pk_user PRIMARY KEY(user_name)
 );
 
 CREATE TABLE IF NOT EXISTS paste_info (
@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS paste_info (
 
 	CONSTRAINT pk_paste PRIMARY KEY(paste_key),
 	CONSTRAINT fk_paste_owner FOREIGN KEY(owner)
-		REFERENCES user(username) ON DELETE CASCADE
+		REFERENCES user(user_name) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS paste_text (
