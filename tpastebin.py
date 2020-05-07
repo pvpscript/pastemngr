@@ -19,6 +19,17 @@ if __name__ == '__main__':
 
     print(user_key)
 
+    #user = User()
+    #user.update(user_name='userino',
+    #        user_key='updated_key_for_userino', user_format_short='text',
+    #        user_expiration='N', user_avatar_url='www.new_avatar_url.com',
+    #        user_private=0, user_website='www.my-new-website.com',
+    #        user_email='myBrandNewEmail@provider.com',
+    #        user_location='I just moved to a new location',
+    #        user_account_type=1)
+    #user.update_key(user_name='userino',
+    #        user_key='some_Key')
+    
 
     """
     login = input('login: ')
@@ -70,4 +81,3 @@ if __name__ == '__main__':
 
     print(paste_text.read('lmao'))
     """
-    
