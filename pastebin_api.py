@@ -67,7 +67,7 @@ class Pastebin():
 
         return (POST_URL, payload, _output_string)
 
-    def get_user_info(self, api_user_key):
+    def fetch_user_info(self, api_user_key):
         payload = {
                 'api_dev_key': self.__dev_key,
                 'api_option': 'userdetails',
@@ -77,7 +77,7 @@ class Pastebin():
 
         return (POST_URL, payload, _output_xml)
 
-    def get_raw_paste(self, api_user_key, api_paste_key):
+    def fetch_raw_paste(self, api_user_key, api_paste_key):
         payload = {
                 'api_dev_key': self.__dev_key,
                 'api_option': 'show_paste',
