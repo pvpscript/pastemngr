@@ -2,7 +2,7 @@ PRAGMA foreign_keys = ON; -- Enable foreign keys
 
 CREATE TABLE IF NOT EXISTS user (
 	username VARCHAR(255),
-	user_key BLOB NOT NULL,
+	user_key VARCHAR(255) NOT NULL,
 	user_format_short VARCHAR(255) NOT NULL,
 	user_expiration CHAR NOT NULL,
 	user_avatar_url VARCHAR(255) NOT NULL,
