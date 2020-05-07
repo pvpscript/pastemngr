@@ -71,10 +71,10 @@ class User(Database):
                user_website, user_email, user_location,
                user_account_type):
         try:
-            self.cursor.execute(self.UPDATE, (user_name, user_key,
-                user_format_short, user_expiration, user_avatar_url,
-                user_private, user_website, user_email, user_location,
-                user_account_type))
+            self.cursor.execute(self.UPDATE, (user_key, user_format_short,
+                    user_expiration, user_avatar_url, user_private,
+                    user_website, user_email, user_location, user_account_type,
+                    user_name))
 
             self.connection.commit()
         except Exception as e:
@@ -94,7 +94,7 @@ class User(Database):
 
     def update_key(self, user_name, user_key):
         try:
-            self.cursor.execute(self.UPDATE_KEY, (user_name, user_key))
+            self.cursor.execute(self.UPDATE_KEY, (user_key, user_name))
 
             self.connection.commit()
         except Exception as e:
@@ -166,9 +166,10 @@ class PasteInfo(Database):
                paste_expire_date, paste_private, paste_format_long,
                paste_format_short, paste_url, paste_hits):
         try:
-            self.cursor.execute(self.UPDATE, (paste_key, owner,
-                paste_date, paste_size, paste_expire_date, paste_private,
-                paste_format_long, paste_format_short, paste_url, paste_hits))
+            self.cursor.execute(self.UPDATE, owner, paste_date, paste_size,
+                    paste_expire_date, paste_private, paste_format_long,
+                    paste_format_short, paste_url, paste_hits,
+                    paste_key))
 
             self.connection.commit()
         except Exception as e:
@@ -236,7 +237,7 @@ class PasteText(Database):
 
     def update(self, paste_key, paste):
         try:
-            self.cursor.execute(self.UPDATE, (paste_key, paste))
+            self.cursor.execute(self.UPDATE, (paste, paste_key))
 
             self.connection.commit()
         except Exception as e:
