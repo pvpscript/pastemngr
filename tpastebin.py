@@ -4,6 +4,8 @@ from config import Config
 from pastebin_api import Pastebin
 from make_request import post
 
+from database import User, PasteInfo, PasteText
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(prog='tpastebin',
                                      description='Pastebin on terminal.')
@@ -16,5 +18,28 @@ if __name__ == '__main__':
 
     user_key_data = pastebin.create_api_user_key(login, passwd)
     user_key = post(*user_key_data)
-    
+
     print(user_key)
+
+    user = User()
+    print('Single read')
+    print(user.read('userino'))
+    print('\nReading all')
+    print(user.all())
+
+    print('\n\n')
+
+    paste_info = PasteInfo()
+    print('Single read')
+    print(paste_info.read('key_123'))
+    print('\nReading all')
+    print(paste_info.all())
+
+    print('\n\n')
+
+    paste_text = PasteText()
+    print('Single read')
+    print(paste_text.read('key_123'))
+    print('\nReading all')
+    print(paste_text.all())
+    
