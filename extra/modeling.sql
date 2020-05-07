@@ -1,15 +1,15 @@
 PRAGMA foreign_keys = ON; -- Enable foreign keys
 
 CREATE TABLE IF NOT EXISTS user (
-	username VARCHAR(255),
+	user_name VARCHAR(255),
 	user_key VARCHAR(255) NOT NULL,
 	user_format_short VARCHAR(255) NOT NULL,
 	user_expiration CHAR NOT NULL,
 	user_avatar_url VARCHAR(255) NOT NULL,
 	user_private INT NOT NULL,
-	user_website VARCHAR(255) NOT NULL,
+	user_website VARCHAR(255),
 	user_email VARCHAR(255) NOT NULL,
-	user_location VARCHAR(255) NOT NULL,
+	user_location VARCHAR(255),
 	user_account_type INT NOT NULL,
 
 	CONSTRAINT pk_user PRIMARY KEY(username)
