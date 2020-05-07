@@ -5,10 +5,10 @@ LOGIN_URL = 'https://pastebin.com/api/api_login.php'
 RAW_URL = 'https://pastebin.com/api/api_raw.php'
 
 def _output_string(val):
-    return { 'content': val.decode('UTF-8') }
+    return { 'content': val }
 
 def _output_xml(val):
-    root = ET.fromstring('<root>' + val.decode('UTF-8') + '</root>')
+    root = ET.fromstring('<root>' + val + '</root>')
 
     ret_dict = {'content': []}
     for tag in root:
