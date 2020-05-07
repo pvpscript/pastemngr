@@ -16,10 +16,27 @@ if __name__ == '__main__':
     login = input('login: ')
     passwd = input('password: ')
 
+
     user_key_data = pastebin.create_api_user_key(login, passwd)
     user_key = post(*user_key_data)
 
+    user_pastes_data = pastebin.list_user_pastes(user_key['content'])
+    user_pastes = post(*user_pastes_data)
+
+    user_info_data = pastebin.fetch_user_info(user_key['content'])
+    user_info = post(*user_info_data)
+
+    print("\n---------- User key ----------")
     print(user_key)
+
+    print("\n---------- User pastes ----------")
+    print(user_pastes)
+
+    print("\n---------- User info ----------")
+    print(user_info)
+
+
+    exit(0)
 
     user = User()
     print('Single read')
@@ -42,4 +59,6 @@ if __name__ == '__main__':
     print(paste_text.read('key_123'))
     print('\nReading all')
     print(paste_text.all())
+
+    print(paste_text.read('lmao'))
     
