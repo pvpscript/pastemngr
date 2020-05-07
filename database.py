@@ -1,3 +1,5 @@
+import sys
+
 from connection import Connect
 
 class Database:
@@ -8,14 +10,14 @@ class Database:
 class User(Database):
     CREATE = """
         INSERT INTO user
-        (username, user_key, user_format_short, user_expiration,
+        (user_name, user_key, user_format_short, user_expiration,
         user_avatar_url, user_private, user_website, user_email, user_location,
         user_account_type)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
     """
     READ = """
         SELECT * FROM user
-        WHERE (username = ?);
+        WHERE (user_name = ?);
     """
     ALL = """
         SELECT * FROM user;
@@ -24,17 +26,26 @@ class User(Database):
     def __init__(self):
         super().__init__()
 
-    def create(self, username, user_key, user_format_short,
+    def create(self, user_name, user_key, user_format_short,
                user_expiration, user_avatar_url, user_private,
                user_website, user_email, user_location,
                user_account_type):
-        self.cursor.execute(self.CREATE, (username, user_key,
-            user_format_short, user_expiration, user_avatar_url,
-            user_private, user_website, user_email, user_location,
-            user_account_type))            
+        try:
+            self.cursor.execute(self.CREATE, (user_name, user_key,
+                user_format_short, user_expiration, user_avatar_url,
+                user_private, user_website, user_email, user_location,
+                user_account_type))
 
-    def read(self, username):
-        result = self.cursor.execute(self.READ, (username,)).fetchone()
+            self.connection.commit()
+        except Exception as e:
+            print(f'An error occurred: {e}', file=sys.stderr)
+
+            self.connection.rollback()
+
+
+
+    def read(self, user_name):
+        result = self.cursor.execute(self.READ, (user_name,)).fetchone()
 
         return dict(result) if result is not None else None
 
@@ -66,9 +77,17 @@ class PasteInfo(Database):
     def create(self, paste_key, owner, paste_date, paste_size,
                paste_expire_date, paste_private, paste_format_long,
                paste_format_short, paste_url, paste_hits):
-        self.cursor.execute(self.CREATE, (paste_key, owner,
-            paste_date, paste_size, paste_expire_date, paste_private,
-            paste_format_long, paste_format_short, paste_url, paste_hits))
+        try:
+            self.cursor.execute(self.CREATE, (paste_key, owner,
+                paste_date, paste_size, paste_expire_date, paste_private,
+                paste_format_long, paste_format_short, paste_url, paste_hits))
+
+            self.connection.commit()
+        except Exception as e:
+            print(f'An error occurred: {e}', file=sys.stderr)
+
+            self.connection.rollback()
+
 
     def read(self, paste_key):
         result = self.cursor.execute(self.READ, (paste_key,)).fetchone()
@@ -97,7 +116,14 @@ class PasteText(Database):
         super().__init__()
 
     def create(self, paste_key, paste):
-        self.cursor.execute(self.CREATE, (paste_key, paste))
+        try:
+            self.cursor.execute(self.CREATE, (paste_key, paste))
+
+            self.connection.commit()
+        except Exception as e:
+            print(f'An error occurred: {e}', file=sys.stderr)
+
+            self.connection.rollback()
 
     def read(self, paste_key):
         result = self.cursor.execute(self.READ, (paste_key,)).fetchone()
