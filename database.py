@@ -42,9 +42,6 @@ class User(Database):
         SELECT * FROM user;
     """
 
-    def __init__(self):
-        super().__init__()
-
     def create(self, user_name, user_key, user_format_short,
                user_expiration, user_avatar_url, user_private,
                user_website, user_email, user_location,
@@ -139,9 +136,6 @@ class PasteInfo(Database):
         SELECT * FROM paste_info;
     """
 
-    def __init__(self):
-        super().__init__()
-
     def create(self, paste_key, owner, paste_date, paste_size,
                paste_expire_date, paste_private, paste_format_long,
                paste_format_short, paste_url, paste_hits):
@@ -216,9 +210,6 @@ class PasteText(Database):
     ALL = """
         SELECT * FROM paste_text;
     """
-
-    def __init__(self):
-        super().__init__()
 
     def create(self, paste_key, paste):
         try:
