@@ -40,6 +40,7 @@ class Controller:
 
             return user_key
 
+        # if user exists but has an invalid key, update key
         if not self.__test_user_key(res['user_key']):
             passwd = gp.getpass('Password: ')
 
@@ -53,10 +54,65 @@ class Controller:
         return res['user_key']
 
 class UserController(Controller):
-    pass
+    def list_users(self):
+        pass
+
+    def register_user(self, user_name):
+        pass
+
+    def fetch_user_info(self, user_name):
+        pass
+
+    def remove_user(self, user_name):
+        pass
+
+    # update user local database for every registered user
+    def update_db(self):
+        pass
 
 class PasteInfoController(Controller):
-    pass
+    def list_user_pastes(self, user_name):
+        pass
+
+    def new_paste(self, user_name):
+        pass
+
+    def new_guest_paste(self):
+        pass
+
+    def fetch_paste_info(self, paste_key):
+        pass
+
+    # delete paste from pastebin
+    def delete_paste(self, paste_key):
+        pass
+
+    # delete paste locally and from pastebin
+    def purge_paste(self, paste_key):
+        pass
+
+    # remove expired from specific user
+    def remove_expired(self, user_name):
+        pass
+
+    # remove expired from every registered user
+    def remove_expired(self):
+        pass
 
 class PasteTextController(Controller):
-    pass
+    def fetch_paste(self, paste_key):
+        pass
+
+# Might implement another time!
+################################################################################
+#class LocalPasteInfoController(Controller):
+#    def new_local_paste(self, user_name):
+#        pass
+#
+#    def upload_local_paste(self, paste_id):
+#        pass
+#
+#    def remove_local_paste(self, paste_id):
+#        pass
+#
+################################################################################
