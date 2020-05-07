@@ -11,9 +11,9 @@ def get():
     pass
 
 def post(url, payload, parse_method):
-    response = requests.post(url, payload).decode('utf-8')
+    response = requests.post(url, payload).content.decode('utf-8')
 
-    if bool(re.match(BAD_REQUEST_URL, response, re.I)):
-        raise BadApiRequest(response[len(BAD_REQUEST_URL):])
+    if bool(re.match(BAD_REQUEST_STR, response, re.I)):
+        raise BadApiRequest(response[len(BAD_REQUEST_STR):])
 
     return parse_method(response)
