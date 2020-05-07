@@ -57,16 +57,51 @@ class User(Database):
 
             self.connection.commit()
         except Exception as e:
-            print(f'An error occurred: {e}', file=sys.stderr)
+            print(f'An error occurred during creation: {e}', file=sys.stderr)
 
             self.connection.rollback()
-
-
 
     def read(self, user_name):
         result = self.cursor.execute(self.READ, (user_name,)).fetchone()
 
         return dict(result) if result is not None else None
+
+    def update(self, user_name, user_key, user_format_short,
+               user_expiration, user_avatar_url, user_private,
+               user_website, user_email, user_location,
+               user_account_type):
+        try:
+            self.cursor.execute(self.UPDATE, (user_name, user_key,
+                user_format_short, user_expiration, user_avatar_url,
+                user_private, user_website, user_email, user_location,
+                user_account_type))
+
+            self.connection.commit()
+        except Exception as e:
+            print(f'An error occurred during update: {e}', file=sys.stderr)
+
+            self.connection.rollback()
+
+    def delete(self, user_name):
+        try:
+            self.cursor.execute(self.DELETE, (user_name,))
+            
+            self.connection.commit()
+        except Exception as e:
+            print(f'An error occurred during deletion: {e}', file=sys.stderr)
+
+            self.connection.rollback()
+
+    def update_key(self, user_name, user_key):
+        try:
+            self.cursor.execute(self.UPDATE_KEY, (user_name, user_key))
+
+            self.connection.commit()
+        except Exception as e:
+            print(f'An error occurred while modifying key: {e}',
+                    file=sys.stderr)
+
+            self.connection.rollback()
 
     def all(self):
         result = self.cursor.execute(self.ALL).fetchall()
@@ -117,7 +152,7 @@ class PasteInfo(Database):
 
             self.connection.commit()
         except Exception as e:
-            print(f'An error occurred: {e}', file=sys.stderr)
+            print(f'An error occurred during creation: {e}', file=sys.stderr)
 
             self.connection.rollback()
 
@@ -126,6 +161,30 @@ class PasteInfo(Database):
         result = self.cursor.execute(self.READ, (paste_key,)).fetchone()
         
         return dict(result) if result is not None else None
+
+    def update(self, paste_key, owner, paste_date, paste_size,
+               paste_expire_date, paste_private, paste_format_long,
+               paste_format_short, paste_url, paste_hits):
+        try:
+            self.cursor.execute(self.UPDATE, (paste_key, owner,
+                paste_date, paste_size, paste_expire_date, paste_private,
+                paste_format_long, paste_format_short, paste_url, paste_hits))
+
+            self.connection.commit()
+        except Exception as e:
+            print(f'An error occurred during update: {e}', file=sys.stderr)
+
+            self.connection.rollback()
+
+    def delete(self, paste_key):
+        try:
+            self.cursor.execute(self.DELETE, (paste_key,))
+
+            self.connection.commit()
+        except Exception as e:
+            print(f'An error occurred during deletion: {e}', file=sys.stderr)
+
+            self.connection.rollback()
 
     def all(self):
         result = self.cursor.execute(self.ALL).fetchall()
@@ -166,7 +225,7 @@ class PasteText(Database):
 
             self.connection.commit()
         except Exception as e:
-            print(f'An error occurred: {e}', file=sys.stderr)
+            print(f'An error occurred during creation: {e}', file=sys.stderr)
 
             self.connection.rollback()
 
@@ -174,6 +233,26 @@ class PasteText(Database):
         result = self.cursor.execute(self.READ, (paste_key,)).fetchone()
 
         return dict(result) if result is not None else None
+
+    def update(self, paste_key, paste):
+        try:
+            self.cursor.execute(self.UPDATE, (paste_key, paste))
+
+            self.connection.commit()
+        except Exception as e:
+            print(f'An error occurred during update: {e}', file=sys.stderr)
+
+            self.connection.rollback()
+
+    def delete(self, paste_key):
+        try:
+            self.cursor.execute(self.DELETE, (paste_key,))
+
+            self.connection.commit()
+        except Exception as e:
+            print(f'An error occurred during deletion: {e}', file=sys.stderr)
+
+            self.connection.rollback()
 
     def all(self):
         result = self.cursor.execute(self.ALL).fetchall()
