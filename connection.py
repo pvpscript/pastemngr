@@ -24,6 +24,7 @@ class Connect:
             url = Config.entry('tpastebin.db')
 
             connection = sqlite3.connect(url)
+            connection.row_factory = sqlite3.Row
         except sqlite3.OperationalError:
             print("Couldn't connect to database.", file=sys.stderr)
 
