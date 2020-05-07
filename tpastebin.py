@@ -6,13 +6,21 @@ from make_request import post
 
 from database import User, PasteInfo, PasteText
 
+import controller as c
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(prog='tpastebin',
                                      description='Pastebin on terminal.')
 
-    pastebin = Pastebin(Config.read_dev_key())
+    dev_key = Config.read_dev_key()
+
+    user_controller = c.UserController(dev_key)
+    user_key = user_controller.login()
+
+    print(user_key)
 
 
+    """
     login = input('login: ')
     passwd = input('password: ')
 
@@ -61,4 +69,5 @@ if __name__ == '__main__':
     print(paste_text.all())
 
     print(paste_text.read('lmao'))
+    """
     
