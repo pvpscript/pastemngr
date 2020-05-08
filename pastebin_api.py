@@ -39,6 +39,7 @@ class Pastebin():
                 'api_dev_key': self.__dev_key,
                 'api_option': 'paste',
                 'api_paste_code': api_paste_code,
+                'api_paste_name': api_paste_name,
                 'api_user_key': api_user_key,
                 'api_paste_format': api_paste_format,
                 'api_paste_private': api_paste_private,
