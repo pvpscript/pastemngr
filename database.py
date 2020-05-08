@@ -121,10 +121,10 @@ class PasteInfo(Database):
     # Default operations
     CREATE = """
         INSERT INTO paste_info
-        (paste_key, owner, paste_date, paste_size, paste_expire_date,
+        (paste_key, owner, paste_date, paste_title, paste_size, paste_expire_date,
         paste_private, paste_format_long, paste_format_short, paste_url,
         paste_hits)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
     """
     READ = """
         SELECT * FROM paste_info
@@ -132,9 +132,9 @@ class PasteInfo(Database):
     """
     UPDATE = """
         UPDATE paste_info
-        SET paste_date = ?, paste_size = ?, paste_expire_date = ?,
-        paste_private = ?, paste_format_long = ?, paste_format_short = ?,
-        paste_url = ?, paste_hits = ?
+        SET paste_date = ?, paste_title = ?, paste_size = ?,
+        paste_expire_date = ?, paste_private = ?, paste_format_long = ?,
+        paste_format_short = ?, paste_url = ?, paste_hits = ?
         WHERE paste_key = ?;
     """
     DELETE = """
@@ -152,8 +152,9 @@ class PasteInfo(Database):
                paste_format_short, paste_url, paste_hits):
         try:
             self.cursor.execute(self.CREATE, (paste_key, owner,
-                paste_date, paste_size, paste_expire_date, paste_private,
-                paste_format_long, paste_format_short, paste_url, paste_hits))
+                paste_date, paste_title, paste_size, paste_expire_date,
+                paste_private, paste_format_long, paste_format_short,
+                paste_url, paste_hits))
 
             self.connection.commit()
         except Exception as e:
@@ -167,14 +168,14 @@ class PasteInfo(Database):
         
         return dict(result) if result is not None else None
 
-    def update(self, paste_key, paste_date, paste_size,
+    def update(self, paste_key, paste_date, paste_title, paste_size,
                paste_expire_date, paste_private, paste_format_long,
                paste_format_short, paste_url, paste_hits):
         try:
-            self.cursor.execute(self.UPDATE, (paste_date, paste_size,
-                    paste_expire_date, paste_private, paste_format_long,
-                    paste_format_short, paste_url, paste_hits,
-                    paste_key))
+            self.cursor.execute(self.UPDATE, (paste_date, paste_title,
+                paste_size, paste_expire_date, paste_private,
+                paste_format_long, paste_format_short, paste_url, paste_hits,
+                paste_key))
 
             self.connection.commit()
         except Exception as e:

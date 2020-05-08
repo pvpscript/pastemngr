@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS paste_info (
 	paste_key VARCHAR(255),
 	owner VARCHAR(255) NOT NULL,
 	paste_date INT NOT NULL,
+	paste_title VARCHAR(255),
 	paste_size INT NOT NULL,
 	paste_expire_date INT NOT NULL,
 	paste_private INT NOT NULL,
