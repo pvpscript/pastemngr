@@ -53,6 +53,13 @@ class Controller:
 
         return res['user_key']
 
+# update_locally tells if the local database must be updated
+# after a non local method execution.
+#
+# this option will be enabled by default.
+#
+# it can be disabled by setting an environment variable.
+# PASTEBIN_UPDATE_LOCALLY = false
 class UserController(Controller):
     def list_users(self):
         pass
@@ -60,30 +67,34 @@ class UserController(Controller):
     def register_user(self, user_name):
         pass
 
-    def fetch_user_info(self, user_name):
+    # fetch user info from pastebin
+    # if local is set to True, fetch locally instead
+    def fetch_user_info(self, user_name, local=False): #update_locally
         pass
 
     def remove_user(self, user_name):
         pass
 
-    # update user local database for every registered user
-    def update_db(self):
+    # update local database for every registered user
+    # if user_name is not None, update local database for specific user instead
+    def update_db(self, user_name=None):
         pass
 
 class PasteInfoController(Controller):
-    def list_user_pastes(self, user_name):
+    # list pastes from pastebin
+    # if local is True,  list only local pastes instead
+    def list_user_pastes(self, user_name, local=False): #update_locally
         pass
 
-    def new_paste(self, user_name):
+    def new_paste(self, user_name): #update_locally
         pass
 
-    def new_guest_paste(self):
+    # fetch paste info from pastebin
+    # if local is True, fetch paste locally instead
+    def fetch_paste_info(self, paste_key, local=False): #update_locally
         pass
 
-    def fetch_paste_info(self, paste_key):
-        pass
-
-    # delete paste from pastebin
+    # delete paste from pastebin, but keep it locally
     def delete_paste(self, paste_key):
         pass
 
@@ -91,19 +102,18 @@ class PasteInfoController(Controller):
     def purge_paste(self, paste_key):
         pass
 
-    # remove expired from specific user
-    def remove_expired(self, user_name):
-        pass
-
     # remove expired from every registered user
-    def remove_expired(self):
+    # if user_name is not None, remove expired from specific user instead
+    def remove_expired(self, user_name=None):
         pass
 
 class PasteTextController(Controller):
-    def fetch_paste(self, paste_key):
+    # fetch paste from pastebin
+    # if local is not False, fetch locally instead
+    def fetch_paste(self, paste_key, local=False): #update_locally
         pass
 
-# Might implement another time!
+# Might implement another time! (Table for local pastes only)
 ################################################################################
 #class LocalPasteInfoController(Controller):
 #    def new_local_paste(self, user_name):
