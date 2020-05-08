@@ -147,7 +147,7 @@ class PasteInfo(Database):
         SELECT * FROM paste_info;
     """
 
-    def create(self, paste_key, owner, paste_date, paste_size,
+    def create(self, paste_key, owner, paste_date, paste_title, paste_size,
                paste_expire_date, paste_private, paste_format_long,
                paste_format_short, paste_url, paste_hits):
         try:
