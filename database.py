@@ -41,6 +41,12 @@ class User(Database):
     ALL = """
         SELECT * FROM user;
     """
+    LIST_USER_PASTES= """
+        SELECT *
+        FROM paste_info
+        WHERE owner = ?
+        ORDER BY paste_date ASC;
+    """
 
     def create(self, user_name, user_key, user_format_short,
                user_expiration, user_avatar_url, user_private,
@@ -98,6 +104,12 @@ class User(Database):
                     file=sys.stderr)
 
             self.connection.rollback()
+
+    def list_user_pastes(self, user_name):
+        result = self.cursor.execute(self.LIST_USER_PASTES, (user_name,))
+
+        return [dict(e) for e in result] if result is not None else None
+
 
     def all(self):
         result = self.cursor.execute(self.ALL).fetchall()
