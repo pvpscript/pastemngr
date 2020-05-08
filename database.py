@@ -132,7 +132,7 @@ class PasteInfo(Database):
     """
     UPDATE = """
         UPDATE paste_info
-        SET owner = ?, paste_date = ?, paste_size = ?, paste_expire_date = ?,
+        SET paste_date = ?, paste_size = ?, paste_expire_date = ?,
         paste_private = ?, paste_format_long = ?, paste_format_short = ?,
         paste_url = ?, paste_hits = ?
         WHERE paste_key = ?;
@@ -167,11 +167,11 @@ class PasteInfo(Database):
         
         return dict(result) if result is not None else None
 
-    def update(self, paste_key, owner, paste_date, paste_size,
+    def update(self, paste_key, paste_date, paste_size,
                paste_expire_date, paste_private, paste_format_long,
                paste_format_short, paste_url, paste_hits):
         try:
-            self.cursor.execute(self.UPDATE, (owner, paste_date, paste_size,
+            self.cursor.execute(self.UPDATE, (paste_date, paste_size,
                     paste_expire_date, paste_private, paste_format_long,
                     paste_format_short, paste_url, paste_hits,
                     paste_key))
