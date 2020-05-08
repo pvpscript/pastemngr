@@ -33,8 +33,8 @@ class Pastebin():
         return (LOGIN_URL, payload, _output_string)
 
     def create_paste(self, api_paste_code, api_user_key='',
-                     api_paste_name='', api_paste_format='',
-                     api_paste_private='', api_paste_expire_date=''):
+                     api_paste_name='', api_paste_format='text',
+                     api_paste_private='', api_paste_expire_date='N'):
         payload = {
                 'api_dev_key': self.__dev_key,
                 'api_option': 'paste',
