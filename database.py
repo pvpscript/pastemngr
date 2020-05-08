@@ -22,9 +22,9 @@ class User(Database):
     """
     UPDATE = """
         UPDATE user
-        SET user_key = ?, user_format_short = ?, user_expiration = ?,
-        user_avatar_url = ?, user_private = ?, user_website = ?,
-        user_email = ?, user_location = ?, user_account_type = ?
+        SET user_format_short = ?, user_expiration = ?, user_avatar_url = ?,
+        user_private = ?, user_website = ?, user_email = ?, user_location = ?,
+        user_account_type = ?
         WHERE user_name = ?;
     """
     DELETE = """
@@ -63,12 +63,11 @@ class User(Database):
 
         return dict(result) if result is not None else None
 
-    def update(self, user_name, user_key, user_format_short,
-               user_expiration, user_avatar_url, user_private,
-               user_website, user_email, user_location,
-               user_account_type):
+    def update(self, user_name, user_format_short, user_expiration,
+               user_avatar_url, user_private, user_website, user_email,
+               user_location, user_account_type):
         try:
-            self.cursor.execute(self.UPDATE, (user_key, user_format_short,
+            self.cursor.execute(self.UPDATE, (user_format_short,
                     user_expiration, user_avatar_url, user_private,
                     user_website, user_email, user_location, user_account_type,
                     user_name))
