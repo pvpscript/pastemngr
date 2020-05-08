@@ -9,8 +9,81 @@ from database import User, PasteInfo, PasteText
 import controller as c
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(prog='tpastebin',
-                                     description='Pastebin on terminal.')
+    parser = argparse.ArgumentParser(
+            description='Pastebin on terminal.',
+            epilog='A super helpful epilog',
+    )
+    subparsers = parser.add_subparsers(dest='command',
+                                      help='subparser helperino')
+
+    # register
+    register_parser = subparsers.add_parser('register', help='register help')
+    register_parser.add_argument('--username', required=True,
+                                 help='user to be registered on local database')
+
+    # remove
+    remove_user_parser = subparsers.add_parser('remove', help='remove help')
+    remove_user_parser.add_argument('--username', required=True,
+                                    help='user to be removed from local database')
+
+    # user_info
+    user_info_parser = subparsers.add_parser('user_info', help='user_info help')
+    user_info_parser.add_argument('--username', required=True,
+                                  help='username to fetch info from')
+    user_info_parser.add_argument('--local', help='get user info locally')
+
+    # new_paste
+    new_paste_parser = subparsers.add_parser('new_paste', help='new_paste help')
+    new_paste_parser.add_argument('--username', help='username help')
+    new_paste_parser.add_argument('--name', help='paste title')
+    new_paste_parser.add_argument('--format',
+                                  choices=('text', 'c'),
+                                  help='paste format')
+    new_paste_parser.add_argument('--visibility',
+                                  choices=('public', 'unlisted', 'private'),
+                                  help='paste visibility')
+    new_paste_parser.add_argument('--expire',
+                                  choices=('5M', '10M'),
+                                  help='paste expiration date')
+
+
+    # fetch_paste
+    fetch_paste_parser = subparsers.add_parser('fetch_paste', help='fetch_paste help')
+    fetch_paste_parser.add_argument('--paste-key', required=True,
+                                    help='paste to fetch')
+    fetch_paste_parser.add_argument('--local', help='fetch paste locally')
+
+    # list_pastes
+    list_parser = subparsers.add_parser('list_pastes', help='list_pastes help')
+    list_parser.add_argument('--username', required=True,
+                             help='list user pastes')
+    list_parser.add_argument('--local', help='list pastes locally')
+
+    # delete_paste
+    list_parser = subparsers.add_parser('delete', help='list help')
+    list_parser.add_argument('--username', required=True,
+                             help='paste owner')
+    list_parser.add_argument('--paste-id', required=True,
+                             help='paste id for deletion')
+    list_parser.add_argument('--local', help='also delete locally')
+
+    # paste_info
+    paste_info_parser = subparsers.add_parser('paste_info', help='paste_info help')
+    paste_info_parser.add_argument('--paste-key', required=True,
+                                   help='key of the paste to fetch information from')
+    paste_info_parser.add_argument('--local', help='fetch information locally')
+
+    # remove_expired
+    rem_exp_parser = subparsers.add_parser('remove_expired', help='remove_expired help')
+    rem_exp_parser.add_argument('--username',
+                                help='user to remove expired pastes from')
+
+    # update_db
+    update_parser = subparsers.add_parser('update_db', help='upadte_db help')
+    update_parser.add_argument('--username',
+                               help='update for specific user only')
+
+    parser.parse_args()
 
     dev_key = Config.read_dev_key()
 
