@@ -3,6 +3,7 @@ import xml.etree.ElementTree as ET
 POST_URL = 'https://pastebin.com/api/api_post.php'
 LOGIN_URL = 'https://pastebin.com/api/api_login.php'
 RAW_URL = 'https://pastebin.com/api/api_raw.php'
+ANY_RAW_URL = 'https://pastebin.com/raw/' # this is not part of the API
 
 def _output_string(val):
     return { 'content': val }
@@ -73,7 +74,6 @@ class Pastebin():
                 'api_dev_key': self.__dev_key,
                 'api_option': 'userdetails',
                 'api_user_key': api_user_key
-
         }
 
         return (POST_URL, payload, _output_xml)
@@ -87,3 +87,6 @@ class Pastebin():
         }
 
         return (RAW_URL, payload, _output_string)
+
+    def fetch_any_raw_paste(self, api_paste_key):
+        return (ANY_RAW_URL + api_paste_key, None, _output_string)
