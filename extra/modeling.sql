@@ -39,5 +39,5 @@ CREATE TABLE IF NOT EXISTS paste_text (
 
 	CONSTRAINT uk_paste_text UNIQUE(paste_key),
 	CONSTRAINT fk_paste_text FOREIGN KEY(paste_key)
-		REFERENCES paste_info(paste_key)
+		REFERENCES paste_info(paste_key) ON DELETE CASCADE
 );
