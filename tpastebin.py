@@ -8,22 +8,84 @@ from database import User, PasteInfo, PasteText
 
 import controller as c
 
+from controller import Controller
+
+import sys, tempfile, os
+from subprocess import call
+
+def read_from_editor():
+    editor = os.environ.get('EDITOR', 'nano')
+   
+    message = b'# Write your paste content. (this line will be ignored)'
+
+    with tempfile.NamedTemporaryFile(suffix='.tmp') as tf:
+        tf.write(message)
+        tf.flush()
+        call([editor, tf.name])
+
+        tf.seek(len(message)+1)
+
+        return tf.read()
+
+def handle_args(args):
+    if args.fetch_dev_key:
+        user_name = input('Username: ')
+        dev_key = fetch_dev_key(user_name)
+
+        Config.write_dev_key(dev_key)
+    elif args.list_users:
+        dev_key = Config.read_dev_key()
+        c = Controller(Config.read_dev_key())
+
+        c.list_users()
+    else:
+        dev_key = Config.read_dev_key()
+        c = Controller(Config.read_dev_key())
+
+        if args.command == 'register':
+            c.register_user(args.username)
+        elif args.command == 'remove':
+            c.remove_user(args.username)
+        elif args.command == 'user_info':
+            c.fetch_user_info(args.username, args.local, args.raw)
+        elif args.command == 'new_paste':
+            if args.input_file:
+                with open(args.input_file) as f:
+                    paste_content = f.read()
+            else:
+                paste_content = read_from_editor()
+            if paste_content == b'':
+                print('Aborted due to empty paste')
+                return
+            c.new_paste(paste_content, args.username, args.name,
+                    args.format, args.visibility, args.expire)
+        elif args.command == 'fetch_paste':
+            c.fetch_user_info(args.paste_key, args.local),
+        elif args.command == 'list_pastes':
+            c.list_users_pastes(args.username, args.local, args.raw)
+        elif args.command == 'delete_paste':
+            c.delete_paste(args.username, args.paste_key)
+        elif args.command == 'paste_info':
+            c.fetch_paste_info(args.paste_key)
+        elif args.command == 'remove_expired':
+            c.remove_expired(args.username)
+        elif args.command == 'update_db':
+            c.update_db(args.username)
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
             description='Pastebin on terminal.',
             epilog='A super helpful epilog',
     )
-    
-    user_op = parser.add_mutually_exclusive_group()
-    user_op.add_argument(
-            '--register',
-            metavar='user',
-            help='register a user in the local database'
+    parser.add_argument(
+            '--list_users',
+            action='store_true',
+            help='list registered users'
     )
-    user_op.add_argument(
-            '--remove',
-            metavar='user',
-            help='remove a user from the local database'
+    parser.add_argument(
+            '--fetch-dev-key',
+            action='store_true',
+            help='fetch the developer key automatically and save it locally'
     )
 
     subparsers = parser.add_subparsers(
@@ -31,27 +93,44 @@ if __name__ == '__main__':
             help='subparser helperino'
     )
 
-    ## register
+    ## user_manage
     #register_parser = subparsers.add_parser(
-    #        'register',
+    #        'user_manage',
+    #        help='operations related to managing users in the local database'
+    #)
+    #user_op = user_manage_parser.add_mutually_exclusive_group()
+    #user_op.add_argument(
+    #        '--register',
+    #        metavar='user',
     #        help='register a user in the local database'
     #)
-    #register_parser.add_argument(
-    #        '--username',
-    #        required=True,
-    #        help='user to be registered on local database'
-    #)
-
-    ## remove
-    #remove_user_parser = subparsers.add_parser(
-    #        'remove',
+    #user_op.add_argument(
+    #        '--remove',
+    #        metavar='user',
     #        help='remove a user from the local database'
     #)
-    #remove_user_parser.add_argument(
-    #        '--username',
-    #        required=True,
-    #        help='user to be removed from local database'
-    #)
+
+    # register
+    register_parser = subparsers.add_parser(
+            'register',
+            help='register a user in the local database'
+    )
+    register_parser.add_argument(
+            '--username',
+            required=True,
+            help='user to be registered on local database'
+    )
+
+    # remove
+    remove_user_parser = subparsers.add_parser(
+            'remove',
+            help='remove a user from the local database'
+    )
+    remove_user_parser.add_argument(
+            '--username',
+            required=True,
+            help='user to be removed from local database'
+    )
 
     # user_info
     user_info_parser = subparsers.add_parser(
@@ -69,11 +148,21 @@ if __name__ == '__main__':
             action='store_true',
             help='get user info locally'
     )
+    user_info_parser.add_argument(
+            '--raw',
+            action='store_true',
+            help='print the output without fancy headers'
+    )
 
     # new_paste
     new_paste_parser = subparsers.add_parser(
             'new_paste',
             help='create a new paste'
+    )
+    new_paste_parser.add_argument(
+            '--input-file',
+            metavar='file', 
+            help='input file to upload as paste'
     )
     new_paste_parser.add_argument(
             '--username',
@@ -137,10 +226,15 @@ if __name__ == '__main__':
             action='store_true',
             help='list pastes locally'
     )
+    list_parser.add_argument(
+            '--raw',
+            action='store_true',
+            help='print the output without fancy headers'
+    )
 
     # delete_paste
     delete_parser = subparsers.add_parser(
-            'delete',
+            'delete_paste',
             help='delete a paste from a user'
     )
     delete_parser.add_argument(
@@ -150,13 +244,14 @@ if __name__ == '__main__':
             help='paste owner'
     )
     delete_parser.add_argument(
-            '--paste-id',
-            metavar='id',
+            '--paste-key',
+            metavar='key',
             required=True,
             help='paste id for deletion'
     )
     delete_parser.add_argument(
             '--local',
+            action='store_true',
             help='also delete locally'
     )
 
@@ -200,7 +295,12 @@ if __name__ == '__main__':
             help='user to be updated'
     )
 
-    parser.parse_args()
+
+    args = parser.parse_args()
+    handle_args(args)
+
+
+
 
 #       dev_key = Config.read_dev_key()
 #   
