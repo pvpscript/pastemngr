@@ -24,14 +24,17 @@ class Controller:
 
         return True
 
-    def __login(self, username):
-        res = self.user.read(username)
+    def __login(self, user_name):
+        res = self.user.read(user_name)
 
         # if user doesn't exists, request login from api and put user in db
         if not res:
             passwd = gp.getpass('Password: ')
 
-            user_key_data = self.pastebin.create_api_user_key(username, passwd)
+            user_key_data = self.pastebin.create_api_user_key(
+                    user_name,
+                    passwd
+            )
             user_key = req.post(*user_key_data)['content']
 
             user_info_data = self.pastebin.fetch_user_info(user_key)
@@ -46,10 +49,13 @@ class Controller:
         if not self.__test_user_key(res['user_key']):
             passwd = gp.getpass('Password: ')
 
-            user_key_data = self.pastebin.create_api_user_key(username, passwd)
+            user_key_data = self.pastebin.create_api_user_key(
+                    user_name,
+                    passwd
+            )
             user_key = req.post(*user_key_data)['content']
 
-            self.user.update_key(username, user_key)
+            self.user.update_key(user_name, user_key)
 
             return user_key
 
@@ -75,12 +81,15 @@ class Controller:
             print('There are no registered users')
 
     def register_user(self, user_name):
-        res = self.user.read(username)
+        res = self.user.read(user_name)
 
         if not res:
             passwd = gp.getpass('Password: ')
 
-            user_key_data = self.pastebin.create_api_user_key(username, passwd)
+            user_key_data = self.pastebin.create_api_user_key(
+                    user_name,
+                    passwd
+            )
             user_key = req.post(*user_key_data)['content']
 
             user_info_data = self.pastebin.fetch_user_info(user_key)
