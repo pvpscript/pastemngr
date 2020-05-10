@@ -20,3 +20,11 @@ class Config:
         file_ref.close()
 
         return dev_key
+
+    @classmethod
+    def write_dev_key(self, dev_key):
+        with open(self.entry('dev_key'), 'w') as f:
+            f.write(dev_key)
+
+
+
