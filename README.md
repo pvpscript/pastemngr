@@ -12,28 +12,28 @@ Configurations are found onder $HOME/.config/pastemngr
 ## Usage
 Describe usage
 
-### Options
+## Options
 Options descript
 
-##### register
+#### register
 register
-##### remove 
+#### remove 
 remove
-##### user\_info
+#### user\_info
 user\_info
-##### new\_paste
+#### new\_paste
 new\_paste
-##### fetch\_paste
+#### fetch\_paste
 fetch\_paste
-##### list\_pastes
+#### list\_pastes
 list\_pastes
-##### delete\_paste
+#### delete\_paste
 delete\_paste
-##### paste\_info
+#### paste\_info
 paste\_info
-##### remove\_expired
+#### remove\_expired
 remove\_expired
-##### update\_db
+#### update\_db
 update\_db
 
 # Instalation
