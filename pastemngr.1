@@ -38,58 +38,897 @@ Remove the given user from the local database.
 [\fB\-\-local\fR]
 [\fB\-\-raw\fR]
 .RS
-Fetch informations about the given user.
+Show informations about the given user.
 .RE
 .PP
 .BR new_paste 
-[\fITAKAFK\fR]
-[\fIfrac\fR]
+[\fB\-\-input-file\fR \fIFILE\fR]
+[\fB\-u\fR \fIUSER\fR]
+[\fB\-\-username\fR \fIUSER\fR]
+[\fB\-\-name\fR \fINAME\fR]
+[\fB\-\-format\fR \fIFMT\fR]
+[\fB\-\-visibility\fR \fIN\fR]
+[\fB\-\-expire\fR \fITIME\fR]
 .RS
-Hello world
+Create a new paste and upload it to pastebin.
 .RE
 .PP
 .BR fetch_paste
-[\fITAKAFK\fR]
-[\fIfrac\fR]
+[\fB\-\-paste-key\fR \fIKEY\fR]
+[\fB\-\-local\fR]
 .RS
-Hello world
+Fetch the paste identified by the given key.
 .RE
 .PP
 .BR list_pastes 
-[\fITAKAFK\fR]
-[\fIfrac\fR]
+[\fB\-u\fR \fIUSER\fR]
+[\fB\-\-username\fR \fIUSER\fR]
+[\fB\-\-local\fR]
+[\fB\-\-raw\fR]
 .RS
-Hello world
+List pastes belonging to the given user.
 .RE
 .PP
 .BR delete_paste 
-[\fITAKAFK\fR]
-[\fIfrac\fR]
+[\fB\-u\fR \fIUSER\fR]
+[\fB\-\-username\fR \fIUSER\fR]
+[\fB\-\-paste-key\fR \fIKEY\fR]
+[\fB\-\-local\fR]
 .RS
-Hello world
+Remove the paste identified by the given key.
 .RE
 .PP
 .BR paste_info 
-[\fITAKAFK\fR]
-[\fIfrac\fR]
+[\fB\-\-paste-key\fR \fIKEY\fR]
 .RS
-Hello world
+Show informations about the paste identified by the given key.
 .RE
 .PP
 .BR remove_expired 
-[\fITAKAFK\fR]
-[\fIfrac\fR]
+[\fB\-u\fR \fIUSER\fR]
+[\fB\-\-username\fR \fIUSER\fR]
 .RS
-Hello world
+Remove expired pastes from the local database for every registered user or for the given user.
 .RE
 .PP
 .BR update_db 
-[\fITAKAFK\fR]
-[\fIfrac\fR]
+[\fB\-u\fR \fIUSER\fR]
+[\fB\-\-username\fR \fIUSER\fR]
 .RS
-Hello world
+Update the local database for every registered user or for the given user.
 .RE
 .SS OPTIONS
 .TP
-.BR \-\-passareth
-List registered users in the local database.
+.BR \-u ", " \-\-username=\fIUSER\fR
+Set the username for executing the operation on.
+.TP
+.BR \-\-input-file=\fIFILE\fR
+Set the input file to be uploaded as a paste. Open a text editor if left blank.
+.TP
+.BR \-\-name=\fINAME\fR
+Set the paste title. Default is 'Untitled'.
+.TP
+.BR \-\-format=\fIFMT\fR
+Set the paste format. Default is 'text'. Check the end of this manual for a complete list of accepted formats.
+.TP
+.BR \-\-visibility=\fIN\fR
+Set the paste visibility between 'public', 'unlisted' and 'private'. Default is 'public'.
+.TP
+.BR \-\-expire=\fITIME\fR
+Set the expire time for the paste. Default is 'N'. Check the end of this manual for a complete list of accepted expire times.
+.TP
+.BR \-\-paste-key=\fIKEY\fR
+The key referring to a paste.
+e.g.: https://pastebin.com/UIFdu235s (the key is UIFdu235s).
+.TP
+.BR \-\-local
+Run the operation locally instead of online.
+.TP
+.BR \-\-raw
+Print the operation's result without fancy headers.
+.SH EXAMPLE
+To write some text to the standard output, use the
+.BR printf (1)
+command:
+.PP
+.nf
+.RS
+printf "this is a %s format %s\n" \\
+usual string
+.RE
+.fi
+.PP
+Nifty, huh?
+.SH EXPIRE
+List of avaiable expirations times
+.TP
+.BR N
+Never.
+.TP
+.BR 10M
+10 minutes.
+.TP
+.BR 1H
+1 hour.
+.TP
+.BR 1D
+1 day.
+.TP
+.BR 1W
+1 week.
+.TP
+.BR 2W
+2 weeks.
+.TP
+.BR 1M
+1 month.
+.TP
+.BR 6M
+6 months.
+.TP
+.BR 1Y
+1 year.
+.SH FORMAT
+List of available paste formats
+.TP
+.BR 4cs
+4CS
+.TP
+.BR 6502acme
+6502 ACME Cross Assembler
+.TP
+.BR 6502kickass
+6502 Kick Assembler
+.TP
+.BR 6502tasm
+6502 TASM/64TASS
+.TP
+.BR abap
+ABAP
+.TP
+.BR actionscript
+ActionScript
+.TP
+.BR actionscript3
+ActionScript 3
+.TP
+.BR ada
+Ada
+.TP
+.BR aimms
+AIMMS
+.TP
+.BR algol68
+ALGOL 68
+.TP
+.BR apache
+Apache Log
+.TP
+.BR applescript
+AppleScript
+.TP
+.BR apt_sources
+APT Sources
+.TP
+.BR arduino
+Arduino
+.TP
+.BR arm
+ARM
+.TP
+.BR asm
+ASM (NASM)
+.TP
+.BR asp
+ASP
+.TP
+.BR asymptote
+Asymptote
+.TP
+.BR autoconf
+autoconf
+.TP
+.BR autohotkey
+Autohotkey
+.TP
+.BR autoit
+AutoIt
+.TP
+.BR avisynth
+Avisynth
+.TP
+.BR awk
+Awk
+.TP
+.BR bascomavr
+BASCOM AVR
+.TP
+.BR bash
+Bash
+.TP
+.BR basic4gl
+Basic4GL
+.TP
+.BR dos
+Batch
+.TP
+.BR bibtex
+BibTeX
+.TP
+.BR blitzbasic
+Blitz Basic
+.TP
+.BR b3d
+Blitz3D
+.TP
+.BR bmx
+BlitzMax
+.TP
+.BR bnf
+BNF
+.TP
+.BR boo
+BOO
+.TP
+.BR bf
+BrainFuck
+.TP
+.BR c
+C
+.TP
+.BR c_winapi
+C (WinAPI)
+.TP
+.BR c_mac
+C for Macs
+.TP
+.BR cil
+C Intermediate Language
+.TP
+.BR csharp
+C#
+.TP
+.BR cpp
+C++
+.TP
+.BR cpp-winapi
+C++ (WinAPI)
+.TP
+.BR cpp-qt
+C++ (with Qt extensions
+.TP
+.BR c_loadrunner
+C: Loadrunner
+.TP
+.BR caddcl
+CAD DCL
+.TP
+.BR cadlisp
+CAD Lisp
+.TP
+.BR ceylon
+Ceylon
+.TP
+.BR cfdg
+CFDG
+.TP
+.BR chaiscript
+ChaiScript
+.TP
+.BR chapel
+Chapel
+.TP
+.BR clojure
+Clojure
+.TP
+.BR klonec
+Clone C
+.TP
+.BR klonecpp
+Clone C++
+.TP
+.BR cmake
+CMake
+.TP
+.BR cobol
+COBOL
+.TP
+.BR coffeescript
+CoffeeScript
+.TP
+.BR cfm
+ColdFusion
+.TP
+.BR css
+CSS
+.TP
+.BR cuesheet
+Cuesheet
+.TP
+.BR d
+D
+.TP
+.BR dart
+Dart
+.TP
+.BR dcl
+DCL
+.TP
+.BR dcpu16
+DCPU-16
+.TP
+.BR dcs
+DCS
+.TP
+.BR delphi
+Delphi
+.TP
+.BR oxygene
+Delphi Prism (Oxygene)
+.TP
+.BR diff
+Diff
+.TP
+.BR div
+DIV
+.TP
+.BR dot
+DOT
+.TP
+.BR e
+E
+.TP
+.BR ezt
+Easytrieve
+.TP
+.BR ecmascript
+ECMAScript
+.TP
+.BR eiffel
+Eiffel
+.TP
+.BR email
+Email
+.TP
+.BR epc
+EPC
+.TP
+.BR erlang
+Erlang
+.TP
+.BR euphoria
+Euphoria
+.TP
+.BR fsharp
+F#
+.TP
+.BR falcon
+Falcon
+.TP
+.BR filemaker
+Filemaker
+.TP
+.BR fo
+FO Language
+.TP
+.BR f1
+Formula One
+.TP
+.BR fortran
+Fortran
+.TP
+.BR freebasic
+FreeBasic
+.TP
+.BR freeswitch
+FreeSWITCH
+.TP
+.BR gambas
+GAMBAS
+.TP
+.BR gml
+Game Maker
+.TP
+.BR gdb
+GDB
+.TP
+.BR genero
+Genero
+.TP
+.BR genie
+Genie
+.TP
+.BR gettext
+GetText
+.TP
+.BR go
+Go
+.TP
+.BR groovy
+Groovy
+.TP
+.BR gwbasic
+GwBasic
+.TP
+.BR haskell
+Haskell
+.TP
+.BR haxe
+Haxe
+.TP
+.BR hicest
+HicEst
+.TP
+.BR hq9plus
+HQ9 Plus
+.TP
+.BR html4strict
+HTML
+.TP
+.BR html5
+HTML 5
+.TP
+.BR icon
+Icon
+.TP
+.BR idl
+IDL
+.TP
+.BR ini
+INI file
+.TP
+.BR inno
+Inno Script
+.TP
+.BR intercal
+INTERCAL
+.TP
+.BR io
+IO
+.TP
+.BR ispfpanel
+ISPF Panel Definition
+.TP
+.BR j
+J
+.TP
+.BR java
+Java
+.TP
+.BR java5
+Java 5
+.TP
+.BR javascript
+JavaScript
+.TP
+.BR jcl
+JCL
+.TP
+.BR jquery
+jQuery
+.TP
+.BR json
+JSON
+.TP
+.BR julia
+Julia
+.TP
+.BR kixtart
+KiXtart
+.TP
+.BR kotlin
+Kotlin
+.TP
+.BR latex
+Latex
+.TP
+.BR ldif
+LDIF
+.TP
+.BR lb
+Liberty BASIC
+.TP
+.BR lsl2
+Linden Scripting
+.TP
+.BR lisp
+Lisp
+.TP
+.BR llvm
+LLVM
+.TP
+.BR locobasic
+Loco Basic
+.TP
+.BR logtalk
+Logtalk
+.TP
+.BR lolcode
+LOL Code
+.TP
+.BR lotusformulas
+Lotus Formulas
+.TP
+.BR lotusscript
+Lotus Script
+.TP
+.BR lscript
+LScript
+.TP
+.BR lua
+Lua
+.TP
+.BR m68k
+M68000 Assembler
+.TP
+.BR magiksf
+MagikSF
+.TP
+.BR make
+Make
+.TP
+.BR mapbasic
+MapBasic
+.TP
+.BR markdown
+Markdown
+.TP
+.BR matlab
+MatLab
+.TP
+.BR mirc
+mIRC
+.TP
+.BR mmix
+MIX Assembler
+.TP
+.BR modula2
+Modula 2
+.TP
+.BR modula3
+Modula 3
+.TP
+.BR 68000devpac
+Motorola 68000 HiSoft Dev
+.TP
+.BR mpasm
+MPASM
+.TP
+.BR mxml
+MXML
+.TP
+.BR mysql
+MySQL
+.TP
+.BR nagios
+Nagios
+.TP
+.BR netrexx
+NetRexx
+.TP
+.BR newlisp
+newLISP
+.TP
+.BR nginx
+Nginx
+.TP
+.BR nim
+Nim
+.TP
+.BR text
+None
+.TP
+.BR nsis
+NullSoft Installer
+.TP
+.BR oberon2
+Oberon 2
+.TP
+.BR objeck
+Objeck Programming Langua
+.TP
+.BR objc
+Objective C
+.TP
+.BR ocaml
+OCaml
+.TP
+.BR ocaml-brief
+OCaml Brief
+.TP
+.BR octave
+Octave
+.TP
+.BR oorexx
+Open Object Rexx
+.TP
+.BR pf
+OpenBSD PACKET FILTER
+.TP
+.BR glsl
+OpenGL Shading
+.TP
+.BR oobas
+Openoffice BASIC
+.TP
+.BR oracle11
+Oracle 11
+.TP
+.BR oracle8
+Oracle 8
+.TP
+.BR oz
+Oz
+.TP
+.BR parasail
+ParaSail
+.TP
+.BR parigp
+PARI/GP
+.TP
+.BR pascal
+Pascal
+.TP
+.BR pawn
+Pawn
+.TP
+.BR pcre
+PCRE
+.TP
+.BR per
+Per
+.TP
+.BR perl
+Perl
+.TP
+.BR perl6
+Perl 6
+.TP
+.BR php
+PHP
+.TP
+.BR php-brief
+PHP Brief
+.TP
+.BR pic16
+Pic 16
+.TP
+.BR pike
+Pike
+.TP
+.BR pixelbender
+Pixel Bender
+.TP
+.BR pli
+PL/I
+.TP
+.BR plsql
+PL/SQL
+.TP
+.BR postgresql
+PostgreSQL
+.TP
+.BR postscript
+PostScript
+.TP
+.BR povray
+POV-Ray
+.TP
+.BR powerbuilder
+PowerBuilder
+.TP
+.BR powershell
+PowerShell
+.TP
+.BR proftpd
+ProFTPd
+.TP
+.BR progress
+Progress
+.TP
+.BR prolog
+Prolog
+.TP
+.BR properties
+Properties
+.TP
+.BR providex
+ProvideX
+.TP
+.BR puppet
+Puppet
+.TP
+.BR purebasic
+PureBasic
+.TP
+.BR pycon
+PyCon
+.TP
+.BR python
+Python
+.TP
+.BR pys60
+Python for S60
+.TP
+.BR q
+q/kdb+
+.TP
+.BR qbasic
+QBasic
+.TP
+.BR qml
+QML
+.TP
+.BR rsplus
+R
+.TP
+.BR racket
+Racket
+.TP
+.BR rails
+Rails
+.TP
+.BR rbs
+RBScript
+.TP
+.BR rebol
+REBOL
+.TP
+.BR reg
+REG
+.TP
+.BR rexx
+Rexx
+.TP
+.BR robots
+Robots
+.TP
+.BR rpmspec
+RPM Spec
+.TP
+.BR ruby
+Ruby
+.TP
+.BR gnuplot
+Ruby Gnuplot
+.TP
+.BR rust
+Rust
+.TP
+.BR sas
+SAS
+.TP
+.BR scala
+Scala
+.TP
+.BR scheme
+Scheme
+.TP
+.BR scilab
+Scilab
+.TP
+.BR scl
+SCL
+.TP
+.BR sdlbasic
+SdlBasic
+.TP
+.BR smalltalk
+Smalltalk
+.TP
+.BR smarty
+Smarty
+.TP
+.BR spark
+SPARK
+.TP
+.BR sparql
+SPARQL
+.TP
+.BR sqf
+SQF
+.TP
+.BR sql
+SQL
+.TP
+.BR standardml
+StandardML
+.TP
+.BR stonescript
+StoneScript
+.TP
+.BR sclang
+SuperCollider
+.TP
+.BR swift
+Swift
+.TP
+.BR systemverilog
+SystemVerilog
+.TP
+.BR tsql
+T-SQL
+.TP
+.BR tcl
+TCL
+.TP
+.BR teraterm
+Tera Term
+.TP
+.BR thinbasic
+thinBasic
+.TP
+.BR typoscript
+TypoScript
+.TP
+.BR unicon
+Unicon
+.TP
+.BR uscript
+UnrealScript
+.TP
+.BR upc
+UPC
+.TP
+.BR urbi
+Urbi
+.TP
+.BR vala
+Vala
+.TP
+.BR vbnet
+VB.NET
+.TP
+.BR vbscript
+VBScript
+.TP
+.BR vedit
+Vedit
+.TP
+.BR verilog
+VeriLog
+.TP
+.BR vhdl
+VHDL
+.TP
+.BR vim
+VIM
+.TP
+.BR visualprolog
+Visual Pro Log
+.TP
+.BR vb
+VisualBasic
+.TP
+.BR visualfoxpro
+VisualFoxPro
+.TP
+.BR whitespace
+WhiteSpace
+.TP
+.BR whois
+WHOIS
+.TP
+.BR winbatch
+Winbatch
+.TP
+.BR xbasic
+XBasic
+.TP
+.BR xml
+XML
+.TP
+.BR xorg_conf
+Xorg Config
+.TP
+.BR xpp
+XPP
+.TP
+.BR yaml
+YAML
+.TP
+.BR z80
+Z80 Assembler
+.TP
+.BR zxbasic
+ZXBasic
