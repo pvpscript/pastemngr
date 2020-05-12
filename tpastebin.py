@@ -78,7 +78,7 @@ if __name__ == '__main__':
             epilog='A super helpful epilog',
     )
     parser.add_argument(
-            '--list_users',
+            '--list-users',
             action='store_true',
             help='list registered users'
     )
@@ -89,8 +89,10 @@ if __name__ == '__main__':
     )
 
     subparsers = parser.add_subparsers(
+            title='An interesting title',
+            metavar='<command>',
             dest='command',
-            help='subparser helperino'
+            help=''
     )
 
     ## user_manage
@@ -116,7 +118,8 @@ if __name__ == '__main__':
             help='register a user in the local database'
     )
     register_parser.add_argument(
-            '--username',
+            '-u', '--username',
+            metavar='USER',
             required=True,
             help='user to be registered on local database'
     )
@@ -127,7 +130,8 @@ if __name__ == '__main__':
             help='remove a user from the local database'
     )
     remove_user_parser.add_argument(
-            '--username',
+            '-u', '--username',
+            metavar='USER',
             required=True,
             help='user to be removed from local database'
     )
@@ -135,11 +139,11 @@ if __name__ == '__main__':
     # user_info
     user_info_parser = subparsers.add_parser(
             'user_info',
-            help='fetch information about an user.'
+            help='fetch information about a user.'
     )
     user_info_parser.add_argument(
-            '--username',
-            metavar='user',
+            '-u', '--username',
+            metavar='USER',
             required=True,
             help='username to fetch info from'
     )
@@ -161,46 +165,88 @@ if __name__ == '__main__':
     )
     new_paste_parser.add_argument(
             '--input-file',
-            metavar='file', 
+            metavar='FILE', 
             help='input file to upload as paste'
     )
     new_paste_parser.add_argument(
-            '--username',
-            metavar='user',
+            '-u', '--username',
+            metavar='USER',
             help='username that owns the paste'
     )
     new_paste_parser.add_argument(
             '--name',
-            metavar='name',
+            metavar='NAME',
             help='paste title'
     )
     new_paste_parser.add_argument(
             '--format',
-            metavar='fmt',
-            choices=('text', 'c'),
-            help='paste format'
+            metavar='FMT',
+            choices=('4cs', '6502acme', '6502kickass', '6502tasm', 'abap',
+                'actionscript', 'actionscript3', 'ada', 'aimms', 'algol68',
+                'apache', 'applescript', 'apt_sources', 'arduino', 'arm',
+                'asm', 'asp', 'asymptote', 'autoconf', 'autohotkey', 'autoit',
+                'avisynth', 'awk', 'bascomavr', 'bash', 'basic4gl', 'dos',
+                'bibtex', 'blitzbasic', 'b3d', 'bmx', 'bnf', 'boo', 'bf', 'c',
+                'c_winapi', 'c_mac', 'cil', 'csharp', 'cpp', 'cpp-winapi',
+                'cpp-qt', 'c_loadrunner', 'caddcl', 'cadlisp', 'ceylon',
+                'cfdg', 'chaiscript', 'chapel', 'clojure', 'klonec',
+                'klonecpp', 'cmake', 'cobol', 'coffeescript', 'cfm', 'css',
+                'cuesheet', 'd', 'dart', 'dcl', 'dcpu16', 'dcs', 'delphi',
+                'oxygene', 'diff', 'div', 'dot', 'e', 'ezt', 'ecmascript',
+                'eiffel', 'email', 'epc', 'erlang', 'euphoria', 'fsharp',
+                'falcon', 'filemaker', 'fo', 'f1', 'fortran', 'freebasic',
+                'freeswitch', 'gambas', 'gml', 'gdb', 'genero', 'genie',
+                'gettext', 'go', 'groovy', 'gwbasic', 'haskell', 'haxe',
+                'hicest', 'hq9plus', 'html4strict', 'html5', 'icon', 'idl',
+                'ini', 'inno', 'intercal', 'io', 'ispfpanel', 'j', 'java',
+                'java5', 'javascript', 'jcl', 'jquery', 'json', 'julia',
+                'kixtart', 'kotlin', 'latex', 'ldif', 'lb', 'lsl2', 'lisp',
+                'llvm', 'locobasic', 'logtalk', 'lolcode', 'lotusformulas',
+                'lotusscript', 'lscript', 'lua', 'm68k', 'magiksf', 'make',
+                'mapbasic', 'markdown', 'matlab', 'mirc', 'mmix', 'modula2',
+                'modula3', '68000devpac', 'mpasm', 'mxml', 'mysql', 'nagios',
+                'netrexx', 'newlisp', 'nginx', 'nim', 'text', 'nsis',
+                'oberon2', 'objeck', 'objc', 'ocaml', 'ocaml-brief', 'octave',
+                'oorexx', 'pf', 'glsl', 'oobas', 'oracle11', 'oracle8', 'oz',
+                'parasail', 'parigp', 'pascal', 'pawn', 'pcre', 'per', 'perl',
+                'perl6', 'php', 'php-brief', 'pic16', 'pike', 'pixelbender',
+                'pli', 'plsql', 'postgresql', 'postscript', 'povray',
+                'powerbuilder', 'powershell', 'proftpd', 'progress', 'prolog',
+                'properties', 'providex', 'puppet', 'purebasic', 'pycon',
+                'python', 'pys60', 'q', 'qbasic', 'qml', 'rsplus', 'racket',
+                'rails', 'rbs', 'rebol', 'reg', 'rexx', 'robots', 'rpmspec',
+                'ruby', 'gnuplot', 'rust', 'sas', 'scala', 'scheme', 'scilab',
+                'scl', 'sdlbasic', 'smalltalk', 'smarty', 'spark', 'sparql',
+                'sqf', 'sql', 'standardml', 'stonescript', 'sclang', 'swift',
+                'systemverilog', 'tsql', 'tcl', 'teraterm', 'thinbasic',
+                'typoscript', 'unicon', 'uscript', 'upc', 'urbi', 'vala',
+                'vbnet', 'vbscript', 'vedit', 'verilog', 'vhdl', 'vim',
+                'visualprolog', 'vb', 'visualfoxpro', 'whitespace', 'whois',
+                'winbatch', 'xbasic', 'xml', 'xorg_conf', 'xpp', 'yaml',
+                'z80', 'zxbasic'),
+            help='paste format. (Check manual to see valid options)'
     )
     new_paste_parser.add_argument(
             '--visibility',
             metavar='N',
             choices=('public', 'unlisted', 'private'),
-            help='paste visibility'
+            help='paste visibility. (%(choices)s)'
     )
     new_paste_parser.add_argument(
             '--expire',
-            metavar='time',
-            choices=('5M', '10M'),
-            help='paste expiration date'
+            metavar='TIME',
+            choices=('N', '10M', '1H', '1D', '1W', '2W', '1M', '6M', '1Y'),
+            help='paste expiration date. (%(choices)s)'
     )
 
     # fetch_paste
     fetch_paste_parser = subparsers.add_parser(
             'fetch_paste',
-            help='fetch a local paste or from pastebin'
+            help='fetch a paste\'s content'
     )
     fetch_paste_parser.add_argument(
             '--paste-key',
-            metavar='key',
+            metavar='KEY',
             required=True,
             help='paste to fetch'
     )
@@ -213,11 +259,11 @@ if __name__ == '__main__':
     # list_pastes
     list_parser = subparsers.add_parser(
             'list_pastes',
-            help='list pastes from a user, locally or from pastebin'
+            help='list pastes from a user'
     )
     list_parser.add_argument(
-            '--username',
-            metavar='user',
+            '-u', '--username',
+            metavar='USER',
             required=True,
             help='user to list pastes from'
     )
@@ -238,14 +284,14 @@ if __name__ == '__main__':
             help='delete a paste from a user'
     )
     delete_parser.add_argument(
-            '--username',
-            metavar='user',
+            '-u', '--username',
+            metavar='USER',
             required=True,
             help='paste owner'
     )
     delete_parser.add_argument(
             '--paste-key',
-            metavar='key',
+            metavar='KEY',
             required=True,
             help='paste id for deletion'
     )
@@ -265,7 +311,7 @@ if __name__ == '__main__':
     )
     paste_info_parser.add_argument(
             '--paste-key',
-            metavar='key',
+            metavar='KEY',
             required=True,
             help='key of the paste to fetch information from'
     )
@@ -276,8 +322,8 @@ if __name__ == '__main__':
             help='remove local pastes that expired'
     )
     rem_exp_parser.add_argument(
-            '--username',
-            metavar='user',
+            '-u', '--username',
+            metavar='USER',
             help='user to remove expired pastes from'
     )
 
@@ -290,8 +336,8 @@ if __name__ == '__main__':
             '''
     )
     update_parser.add_argument(
-            '--username',
-            metavar='user',
+            '-u', '--username',
+            metavar='USER',
             help='user to be updated'
     )
 
