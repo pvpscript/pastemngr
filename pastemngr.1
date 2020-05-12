@@ -1,0 +1,95 @@
+.TH PASTEMNGR 1
+.SH NAME
+pastemngr \- A powerful pastebin manager for the command line.
+.SH SYNOPSIS
+.B pastemngr
+[\fIOPTIONS\fR]
+[\fB\fI<command>\fR]
+.SH DESCRIPTION
+.B pastemngr
+manages pastes from pastebin.com and stores informations locally about users and pastes. This tool has the hability to create and retrieve pastes from the command line as well as fetching information regarding users and pastes (locally and online).
+.SH OPTIONS
+.TP
+.BR \-\-list-users
+List registered users in the local database.
+.TP
+.BR \-\-fetch-dev-key " " \fIuser\fR
+Request a pastebin login for the provided username and fetch its developer key. This application needs a developer key to access the pastebin API, otherwise it won't work.
+.SH COMMANDS
+List of accepted commands
+.PP
+.BR register
+[\fB\-u\fR \fIUSER\fR]
+[\fB\-\-username\fR \fIUSER\fR]
+.RS
+Register the given user in the local database.
+.RE
+.PP
+.BR remove 
+[\fB\-u\fR \fIUSER\fR]
+[\fB\-\-username\fR \fIUSER\fR]
+.RS
+Remove the given user from the local database.
+.RE
+.PP
+.BR user_info 
+[\fB\-u\fR \fIUSER\fR]
+[\fB\-\-username\fR \fIUSER\fR]
+[\fB\-\-local\fR]
+[\fB\-\-raw\fR]
+.RS
+Fetch informations about the given user.
+.RE
+.PP
+.BR new_paste 
+[\fITAKAFK\fR]
+[\fIfrac\fR]
+.RS
+Hello world
+.RE
+.PP
+.BR fetch_paste
+[\fITAKAFK\fR]
+[\fIfrac\fR]
+.RS
+Hello world
+.RE
+.PP
+.BR list_pastes 
+[\fITAKAFK\fR]
+[\fIfrac\fR]
+.RS
+Hello world
+.RE
+.PP
+.BR delete_paste 
+[\fITAKAFK\fR]
+[\fIfrac\fR]
+.RS
+Hello world
+.RE
+.PP
+.BR paste_info 
+[\fITAKAFK\fR]
+[\fIfrac\fR]
+.RS
+Hello world
+.RE
+.PP
+.BR remove_expired 
+[\fITAKAFK\fR]
+[\fIfrac\fR]
+.RS
+Hello world
+.RE
+.PP
+.BR update_db 
+[\fITAKAFK\fR]
+[\fIfrac\fR]
+.RS
+Hello world
+.RE
+.SS OPTIONS
+.TP
+.BR \-\-passareth
+List registered users in the local database.
