@@ -75,49 +75,65 @@ user info, which includes the user key.
 `pastemngr [OPTIONS] [<command>]`
 
 ## Options
-`--list-users` List registered users in the local database.
-`--fetch-dev-key` Request a pastebin login, fetch the account's developer key,
-k
+`--list-users`
+
+List registered users in the local database.
+
+`--fetch-dev-key`
+
+Request a pastebin login, fetch the account's developer key and save  it
+locally, at the config folder. This application needs a developer key to
+access the pastebin API, otherwise it won't work.
 
 #### register
 `register [-u USER] [--username USER]`
+
 Register the given user in the local database.
 
 #### remove 
 `remove [-u USER] [--username USER]`
+
 Remove the given user from the local database.
 
 #### user\_info
 ` user_info [-u USER] [--username USER] [--local] [--raw]`
+
 Show informations about the given user.
 
 #### new\_paste
 `new_paste [--input-file FILE] [-u USER] [--username USER]  [--title TITLE]  [--format FMT] [--visibility N] [--expire TIME]`
+
 Create a new paste and upload it to pastebin.
 
 #### fetch\_paste
 `fetch_paste [--paste-key KEY] [--local]`
+
 Fetch the paste identified by the given key.
 
 #### list\_pastes
 `list_pastes [-u USER] [--username USER] [--local] [--raw]`
+
 List pastes belonging to the given user.
 
 #### delete\_paste
 `delete_paste [-u USER] [--username USER] [--paste-key KEY] [--local]`
+
 Remove the paste identified by the given key.
 
 #### paste\_info
 `paste_info [--paste-key KEY]`
+
 Show informations about the paste identified by the given key.
 
 #### remove\_expired
 `remove_expired [-u USER] [--username USER]`
+
 Remove  expired  pastes  from the local database for every registered user or
 for the given user.
 
 #### update\_db
 `update_db [-u USER] [--username USER]`
+
 Update the local database for every registered user or for the given user.
 
 # Instalation
