@@ -62,7 +62,7 @@ def handle_args(args):
         elif args.command == 'fetch_paste':
             c.fetch_paste(args.paste_key, args.local),
         elif args.command == 'list_pastes':
-            c.list_users_pastes(args.username, args.local, args.raw)
+            c.list_user_pastes(args.username, args.local, args.raw)
         elif args.command == 'delete_paste':
             c.delete_paste(args.username, args.paste_key)
         elif args.command == 'paste_info':
