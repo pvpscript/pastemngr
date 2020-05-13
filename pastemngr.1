@@ -45,7 +45,7 @@ Show informations about the given user.
 [\fB\-\-input-file\fR \fIFILE\fR]
 [\fB\-u\fR \fIUSER\fR]
 [\fB\-\-username\fR \fIUSER\fR]
-[\fB\-\-name\fR \fINAME\fR]
+[\fB\-\-title\fR \fINAME\fR]
 [\fB\-\-format\fR \fIFMT\fR]
 [\fB\-\-visibility\fR \fIN\fR]
 [\fB\-\-expire\fR \fITIME\fR]
@@ -105,7 +105,7 @@ Set the username for executing the operation on.
 .BR \-\-input-file=\fIFILE\fR
 Set the input file to be uploaded as a paste. Open a text editor if left blank.
 .TP
-.BR \-\-name=\fINAME\fR
+.BR \-\-title=\fINAME\fR
 Set the paste title. Default is 'Untitled'.
 .TP
 .BR \-\-format=\fIFMT\fR
@@ -139,7 +139,7 @@ Post a new paste as guest
 .RE
 .PP
 .BR pastemngr
-\fBnew_paste --name 'A simple title' --expire 1M\fR
+\fBnew_paste --title 'A simple title' --expire 1M\fR
 .RS
 Post a new paste as guest, with title and expiration date of a month.
 .RE

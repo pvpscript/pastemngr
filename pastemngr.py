@@ -57,7 +57,7 @@ def handle_args(args):
             if paste_content == b'':
                 print('Aborted due to empty paste')
                 return
-            c.new_paste(paste_content, args.username, args.name,
+            c.new_paste(paste_content, args.username, args.title,
                     args.format, args.visibility, args.expire)
         elif args.command == 'fetch_paste':
             c.fetch_paste(args.paste_key, args.local),
@@ -174,7 +174,7 @@ if __name__ == '__main__':
             help='username that owns the paste'
     )
     new_paste_parser.add_argument(
-            '--name',
+            '--title',
             metavar='NAME',
             help='paste title'
     )
