@@ -4,9 +4,9 @@ class Config:
     __home = os.getenv('HOME')
     __xdg_config_home = os.getenv('XDG_CONFIG_HOME')
 
-    __config_dir = self.__home + '/.config/tpastebin/' \
+    __config_dir = self.__home + '/.config/pastemngr/' \
             if __xdg_config_home == None \
-            else __xdg_config_home + '/tpastebin/'
+            else __xdg_config_home + '/pastemngr/'
 
     @classmethod
     def entry(self, name):

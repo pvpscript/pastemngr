@@ -21,7 +21,7 @@ class Connect:
         connection = None
 
         try:
-            url = Config.entry('tpastebin.db')
+            url = Config.entry('pastemngr.db')
 
             connection = sqlite3.connect(url)
             connection.row_factory = sqlite3.Row
