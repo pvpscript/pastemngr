@@ -127,51 +127,40 @@ Run the operation locally instead of online.
 .BR \-\-raw
 Print the operation's result without fancy headers.
 .SH EXAMPLE
+.PP
 This section presents some examples of
 .BR pastemngr
 usage.
 .PP
-Post a new paste as guest:
-.PP
-.nf
+.BR pastemngr
+\fBnew_paste\fR
 .RS
-pastemngr new_paste
+Post a new paste as guest
 .RE
-.fi
 .PP
-Post a new paste as guest, with title and expiration date of a month:
-.PP
-.nf
+.BR pastemngr
+\fBnew_paste --name 'A simple title' --expire 1M\fR
 .RS
-pastemngr new_paste --name 'A simple title' --expire 1M
+Post a new paste as guest, with title and expiration date of a month.
 .RE
-.fi
 .PP
+.BR pastemngr
+\fBnew_paste --username user --input-file example.sh --format bash\fR
+.RS
 Post a new paste as user, using an existing file and having a format:
-.PP
-.nf
-.RS
-pastemngr new_paste --username user --input-file example.sh --format bash
 .RE
-.fi
 .PP
-Fetch a paste:
-.PP
-.nf
+.BR pastemngr
+\fBfetch_paste --paste-key UIFdu235s\fR
 .RS
-pastemngr fetch_paste --paste-key UIFdu235s 
+Fetch a paste
 .RE
-.fi
 .PP
-Update the database:
-.PP
-.nf
+.BR pastemngr
+\fBupdate_db\fR
 .RS
-pastemngr update_db
+Update the database
 .RE
-.fi
-.PP
-Nifty, huh?
 .SH EXPIRE
 List of avaiable expirations times
 .TP
