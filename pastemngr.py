@@ -60,7 +60,7 @@ def handle_args(args):
             c.new_paste(paste_content, args.username, args.name,
                     args.format, args.visibility, args.expire)
         elif args.command == 'fetch_paste':
-            c.fetch_user_info(args.paste_key, args.local),
+            c.fetch_paste(args.paste_key, args.local),
         elif args.command == 'list_pastes':
             c.list_users_pastes(args.username, args.local, args.raw)
         elif args.command == 'delete_paste':
