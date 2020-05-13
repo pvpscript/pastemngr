@@ -20,16 +20,16 @@ executed by it needs this key as a parameter, or it won't work at all.
 The API provided by pastebin make use of two types of keys, the **developer key**
 and the **user key**.
 
-The first will be the master key, the one that will allow this application to
-execute any of the possible operations provided by the API, which means that
-this key is only responsible for providing access. Period.
+The first will be the _master key_, the one that will allow this application to
+execute any of the possible operations provided by the API, meaning that
+this key is only responsible for providing access. That's all.
 
 The latter, is the key that will be used for user specific operations, such
 as posting pastes associated with an account or fetching user informations,
-such as account details or pastes owned by the account. For example, when a
-paste is associated with an account, this key comes into place making it's
+such as account details or pastes owned by an account. For example, when a
+paste is associated with a user, this key comes into place making it's
 owner the author of the posted paste. Also, when running an operation to fetch
-data from a user, this key tells the API the user that the application is
+data from a user, this key tells the API which user the application is
 fetching information from.
 
 ## Getting the developer key
@@ -59,8 +59,8 @@ file called `api_key` and paste the code found at the pastebin site;
 6. Save the file.
 
 # Configuration
-The configuration directory is located under `$XDG_CONFIG_HOME/pastemngr/` by default 
-or `$HOME/.config/pastemngr`, if the first is undefined.
+The configuration directory is located under `$XDG_CONFIG_HOME/pastemngr/`
+by default, or `$HOME/.config/pastemngr` if the first is undefined.
 
 ### dev\_key file
 This file refers to the developer key used for executing operations on the
@@ -84,6 +84,10 @@ List registered users in the local database.
 Request a pastebin login, fetch the account's developer key and save  it
 locally, at the config folder. This application needs a developer key to
 access the pastebin API, otherwise it won't work.
+
+## Commands
+List of accepted commands. To information about the options, refer to
+`pastemngr(1)` manual page.
 
 #### register
 `register [-u USER] [--username USER]`
