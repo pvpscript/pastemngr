@@ -63,6 +63,8 @@ class User(Database):
             print(f'An error occurred during creation: {e}', file=sys.stderr)
 
             self.connection.rollback()
+        finally:
+            return self.cursor.rowcount
 
     def read(self, user_name):
         result = self.cursor.execute(self.READ, (user_name,)).fetchone()
@@ -83,6 +85,8 @@ class User(Database):
             print(f'An error occurred during update: {e}', file=sys.stderr)
 
             self.connection.rollback()
+        finally:
+            return self.cursor.rowcount
 
     def delete(self, user_name):
         try:
@@ -93,6 +97,8 @@ class User(Database):
             print(f'An error occurred during deletion: {e}', file=sys.stderr)
 
             self.connection.rollback()
+        finally:
+            return self.cursor.rowcount
 
     def update_key(self, user_name, user_key):
         try:
@@ -104,6 +110,8 @@ class User(Database):
                     file=sys.stderr)
 
             self.connection.rollback()
+        finally:
+            return self.cursor.rowcount
 
     def list_user_pastes(self, user_name):
         result = self.cursor.execute(self.LIST_USER_PASTES, (user_name,))
@@ -161,7 +169,8 @@ class PasteInfo(Database):
             print(f'An error occurred during creation: {e}', file=sys.stderr)
 
             self.connection.rollback()
-
+        finally:
+            return self.cursor.rowcount
 
     def read(self, paste_key):
         result = self.cursor.execute(self.READ, (paste_key,)).fetchone()
@@ -182,6 +191,8 @@ class PasteInfo(Database):
             print(f'An error occurred during update: {e}', file=sys.stderr)
 
             self.connection.rollback()
+        finally:
+            return self.cursor.rowcount
 
     def delete(self, paste_key):
         try:
@@ -192,6 +203,8 @@ class PasteInfo(Database):
             print(f'An error occurred during deletion: {e}', file=sys.stderr)
 
             self.connection.rollback()
+        finally:
+            return self.cursor.rowcount
 
     def all(self):
         result = self.cursor.execute(self.ALL).fetchall()
@@ -232,6 +245,8 @@ class PasteText(Database):
             print(f'An error occurred during creation: {e}', file=sys.stderr)
 
             self.connection.rollback()
+        finally:
+            return self.cursor.rowcount
 
     def read(self, paste_key):
         result = self.cursor.execute(self.READ, (paste_key,)).fetchone()
@@ -247,6 +262,8 @@ class PasteText(Database):
             print(f'An error occurred during update: {e}', file=sys.stderr)
 
             self.connection.rollback()
+        finally:
+            return self.cursor.rowcount
 
     def delete(self, paste_key):
         try:
@@ -257,6 +274,8 @@ class PasteText(Database):
             print(f'An error occurred during deletion: {e}', file=sys.stderr)
 
             self.connection.rollback()
+        finally:
+            return self.cursor.rowcount
 
     def all(self):
         result = self.cursor.execute(self.ALL).fetchall()
