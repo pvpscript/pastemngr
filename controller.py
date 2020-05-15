@@ -96,7 +96,8 @@ class Controller:
             user_info = req.post(*user_info_data)['content'][0]
             user_info = {**user_info, 'user_key': user_key}
             
-            self.user.create(**user_info)
+            if self.user.create(**user_info) == 1:
+                print('User succesfully registered')
 
     # fetch user info from pastebin
     # if local is set to True, fetch locally instead
@@ -120,11 +121,17 @@ class Controller:
             print(f'\nThere are no records for user [{user_name}]')
 
     def remove_user(self, user_name):
-        self.user.delete(user_name)
+        if self.user.delete(user_name) == 1:
+            print('User successfully removed')
+        else:
+            print('Couldn\'t remove user or user is not registered')
 
     # update local database for every registered user
     # if user_name is not None, update local database for specific user instead
     def update_db(self, user_name=None):
+        updated_rows = 0
+        created_rows = 0
+
         if user_name is None:
             users = self.user.all()
 
@@ -134,7 +141,7 @@ class Controller:
 
                 user_info_data = self.pastebin.fetch_user_info(user_key)
                 user_info = req.post(*user_info_data)['content'][0]
-                self.user.update(**user_info)
+                updated_rows += self.user.update(**user_info)
 
                 pastes_data = self.pastebin.list_user_pastes(user_key)
                 pastes = req.post(*pastes_data)['content']
@@ -143,16 +150,21 @@ class Controller:
                     paste_key = p['paste_key'] 
 
                     if self.paste_info.read(paste_key) is not None:
-                        self.paste_info.update(**p)
+                        updated_rows += self.paste_info.update(**p)
                     else:
                         p = {**p, 'owner': user_name}
-                        self.paste_info.create(**p)
+                        created_rows += self.paste_info.create(**p)
 
                         raw_paste_data = self.pastebin.fetch_raw_paste(
                                 user_key, paste_key)
                         raw_paste = req.post(*raw_paste_data)['content']
 
-                        self.paste_text.create(paste_key, raw_paste)
+                        created_rows += self.paste_text.create(
+                                paste_key, raw_paste
+                        )
+                        
+        print(f'{updated_rows} rows updated')
+        print(f'{created_rows} rows created')
 
     # list pastes from pastebin
     # if local is True,  list only local pastes instead
@@ -208,7 +220,10 @@ class Controller:
         del_paste_data = self.pastebin.delete_user_paste(user_key, paste_key)
         del_paste = req.post(*del_paste_data)
 
-        self.paste_info.delete(paste_key)
+        if self.paste_info.delete(paste_key) == 1:
+            print('Successfully removed from local database')
+        else:
+            print('Couldn\'t remove paste from local database or paste not found')
 
         print(del_paste['content'])
 
@@ -218,6 +233,8 @@ class Controller:
         users = self.user.all()
         curr_time = time.time()
 
+        removed = 0
+
         for u in users:
             user_name = u['user_name']
             pastes = self.user.list_user_pastes(user_name)
@@ -225,7 +242,9 @@ class Controller:
             for p in pastes:
                 expire_date = int(p['paste_expire_date'])
                 if expire_date > 0 and curr_time > expire_date:
-                        self.paste_info.delete(p['paste_key'])
+                        removed += self.paste_info.delete(p['paste_key'])
+
+        print(f'{removed} expired pastes removed')
 
     # fetch paste from pastebin
     # if local is not False, fetch locally instead
