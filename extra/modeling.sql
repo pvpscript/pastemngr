@@ -1,5 +1,4 @@
 PRAGMA foreign_keys = ON; -- Enable foreign keys
-PRAGMA count_changes = True;
 
 CREATE TABLE IF NOT EXISTS user (
 	user_name VARCHAR(255),
