@@ -17,20 +17,20 @@ class Controller:
         self.paste_text = db.PasteText()
 
     def __read_from_editor():
-    editor = os.environ.get('EDITOR', 'nano')
-   
-    #message = b'# Write your paste content. (this line will be ignored)'
+        editor = os.environ.get('EDITOR', 'nano')
+       
+        #message = b'# Write your paste content. (this line will be ignored)'
 
-    with tempfile.NamedTemporaryFile(suffix='.tmp') as tf:
-        #tf.write(message)
-        #tf.flush()
-        call([editor, tf.name])
+        with tempfile.NamedTemporaryFile(suffix='.tmp') as tf:
+            #tf.write(message)
+            #tf.flush()
+            call([editor, tf.name])
 
-        #tf.seek(len(message)+1)
+            #tf.seek(len(message)+1)
 
-        content = tf.read()
+            content = tf.read()
 
-        return content if content != b'' else None
+            return content if content != b'' else None
 
     def __test_user_key(self, user_key):
         try:
