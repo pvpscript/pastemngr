@@ -6,6 +6,7 @@ import make_request as req
 import database as db
 
 from pastebin_api import Pastebin
+from subprocess import call
 
 class Controller:
     def __init__(self, dev_key):
@@ -14,6 +15,22 @@ class Controller:
         self.user = db.User()
         self.paste_info = db.PasteInfo()
         self.paste_text = db.PasteText()
+
+    def __read_from_editor():
+    editor = os.environ.get('EDITOR', 'nano')
+   
+    #message = b'# Write your paste content. (this line will be ignored)'
+
+    with tempfile.NamedTemporaryFile(suffix='.tmp') as tf:
+        #tf.write(message)
+        #tf.flush()
+        call([editor, tf.name])
+
+        #tf.seek(len(message)+1)
+
+        content = tf.read()
+
+        return content if content != b'' else None
 
     def __test_user_key(self, user_key):
         try:
@@ -177,10 +194,27 @@ class Controller:
             if not raw:
                 print('{:-^80}'.format(''))
 
-    def new_paste(self, api_paste_code, user_name=None,
-                  api_paste_name='', api_paste_format='text',
-                  api_paste_private='', api_paste_expire_date='N'): #update_locally
+    def new_paste(self, input_file=None, user_name=None, api_paste_name='',
+                  api_paste_format='text', api_paste_private='',
+                  api_paste_expire_date='N'):
         user_key = self.__login(user_name) if user_name is not None else ''
+
+        #try:
+        if input_file is not None:
+            with open(input_file) as f:
+                content = f.read()
+                api_paste_code = content if content != '' else None
+        else:
+            api_paste_code = self.__read_from_editor()
+        #except FileNotFoundError:
+        #    print(f'File "{input_file}" not found.')
+        #except EmptyPaste:
+        #    print(f'Aborted due to empty paste content.')
+
+        if api_paste_code is None:
+            print('Couldn\'t create new paste')
+            return
+            #exit error
         
         new_paste_data = self.pastebin.create_paste(api_paste_code, user_key,
                 api_paste_name, api_paste_format, api_paste_private,
@@ -188,6 +222,8 @@ class Controller:
         new_paste = req.post(*new_paste_data)
 
         print(new_paste['content'])
+
+        # exit success
 
     # fetch paste info locally
     def fetch_paste_info(self, paste_key):
