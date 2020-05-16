@@ -61,14 +61,6 @@ class Controller:
 
         return res['user_key']
 
-# update_locally tells if the local database must be updated
-# after a non local method execution.
-#
-# this option will be enabled by default.
-#
-# it can be disabled by setting an environment variable.
-# PASTEBIN_UPDATE_LOCALLY = false
-
     def list_users(self):
         users = self.user.all()
 
