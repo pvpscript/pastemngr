@@ -1,7 +1,10 @@
 # pastemngr
 A powerful pastebin manager for the command line
 
-TODO: Better argparse; better argument handler;
+TODO:
+Better argparse; better argument handler; Test database reading outputs.
+Fix fetch-dev-key for login error; Add prints to this readme.
+
 
 # Introduction
 Paste manager (pastemngr) is a command line tool for pastebin.com. By consuming
