@@ -78,15 +78,17 @@ class Controller:
 
         return res['user_key']
 
-    def list_users(self):
+    def list_users(self, raw=False):
         users = self.user.all()
 
         if users is not None:
-            print('\n---------- Registered users ----------')
+            if not raw:
+                print('\n---------- Registered users ----------')
             for u in users:
                 print(f'-> {u["user_name"]}')
-            print('----------------------------------------')
-        else:
+            if not raw:
+                print('----------------------------------------')
+        elif raw:
             print('There are no registered users')
 
     def register_user(self, user_name):
