@@ -225,7 +225,7 @@ if __name__ == '__main__':
     new_paste_parser.add_argument(
             '--visibility',
             metavar='N',
-            choices=('public', 'unlisted', 'private'),
+            choices=(0, 1, 2),
             help='paste visibility. (%(choices)s)',
             dest='api_paste_private'
     )
