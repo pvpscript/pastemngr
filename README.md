@@ -2,8 +2,9 @@
 A powerful pastebin manager for the command line
 
 TODO:
-Better argparse; better argument handler; Test database reading outputs.
-Fix fetch-dev-key for login error; Add prints to this readme.
+Better argparse [DONE]; better argument handler [DONE]; Test database reading outputs [DONE];
+Update manual and readme for 'list\_users' [DONE]; Fix fetch-dev-key for login error [DONE];
+Add prints to this readme.
 
 
 # Introduction
