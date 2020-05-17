@@ -1,5 +1,6 @@
 import os
 import time
+import tempfile
 
 import getpass as gp
 import make_request as req
@@ -16,7 +17,7 @@ class Controller:
         self.paste_info = db.PasteInfo()
         self.paste_text = db.PasteText()
 
-    def __read_from_editor():
+    def __read_from_editor(self):
         editor = os.environ.get('EDITOR', 'nano')
        
         #message = b'# Write your paste content. (this line will be ignored)'
