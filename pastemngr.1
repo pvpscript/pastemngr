@@ -10,13 +10,16 @@ pastemngr \- A powerful pastebin manager for the command line.
 manages pastes from pastebin.com and stores informations locally about users and pastes. This tool has the hability to create and retrieve pastes from the command line as well as fetching information regarding users and pastes (locally and online).
 .SH OPTIONS
 .TP
-.BR \-\-list-users
-List registered users in the local database.
-.TP
 .BR \-\-fetch-dev-key
-Request a pastebin login, fetch the account's developer key and save it locally, at the config folder. This application needs a developer key to access the pastebin API, otherwise it won't work.
+Request a pastebin login, fetch the account's developer key and, on success, save it locally, at the config folder. This application needs a developer key to access the pastebin API, otherwise it won't work.
 .SH COMMANDS
 List of accepted commands
+.PP
+.BR list_users 
+[\fB\--raw\fR]
+.RS
+List registered users in the local database.
+.RE
 .PP
 .BR register
 [\fB\-u\fR \fIUSER\fR]
