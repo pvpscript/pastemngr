@@ -1,3 +1,4 @@
+import sys
 import argparse
 
 from controller import Controller
@@ -345,5 +346,9 @@ class Parser:
         )
 
     def run(self):
+        if len(sys.argv) == 1:
+            self.parser.print_usage(sys.stderr)
+            exit(1)
+
         args = self.parser.parse_args()
         _handle_args(args, self.drop_args)
