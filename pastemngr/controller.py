@@ -1,4 +1,5 @@
 import os
+import sys
 import time
 import tempfile
 
@@ -136,7 +137,7 @@ class Controller:
         if self.user.delete(user_name) == 1:
             print('User successfully removed')
         else:
-            print('Couldn\'t remove user or user is not registered')
+            sys.stderr.write('Couldn\'t remove user or user is not registered\n')
 
     # update local database for every registered user
     # if user_name is not None, update local database for specific user instead
@@ -213,11 +214,11 @@ class Controller:
             else:
                 api_paste_code = self.__read_from_editor()
         except FileNotFoundError:
-            print(f'Coudn\'t create paste. File not found.')
+            sys.stderr.write(f'Coudn\'t create paste. File not found.\n')
             raise
 
         if api_paste_code is None:
-            print('Paste content is empty. Aborting...')
+            sys.stderr.write('Paste content is empty. Aborting...\n')
             return
         
         new_paste_data = self.pastebin.create_paste(
@@ -258,7 +259,7 @@ class Controller:
         if self.paste_info.delete(paste_key) == 1:
             print('Successfully removed from local database')
         else:
-            print('Couldn\'t remove paste from local database or paste not found')
+            sys.stderr.write('Couldn\'t remove paste from local database or paste not found\n')
 
         print(del_paste['content'])
 
