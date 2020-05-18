@@ -10,6 +10,9 @@ import database as db
 from pastebin_api import Pastebin
 from subprocess import call
 
+class EmptyPasteError(Exception):
+    """ raised when trying to create a paste with empty content """
+
 class Controller:
     def __init__(self, dev_key):
         self.pastebin = Pastebin(dev_key)
@@ -205,22 +208,22 @@ class Controller:
                   api_paste_format='text', api_paste_private='',
                   api_paste_expire_date='N'):
         user_key = self.__login(user_name) if user_name is not None else ''
+        api_paste_code = ''
 
         try:
             if input_file is not None:
                 with open(input_file) as f:
-                    content = f.read()
-                    api_paste_code = content if content != '' else None
+                    api_paste_code = f.read()
+                    if api_paste_code == '':
+                        raise EmptyPasteError('Paste file has no content.')
             else:
                 api_paste_code = self.__read_from_editor()
+                if api_paste_code is None:
+                    raise EmptyPasteError('Paste content is empty.')
         except FileNotFoundError:
             sys.stderr.write(f'Coudn\'t create paste. File not found.\n')
             raise
 
-        if api_paste_code is None:
-            sys.stderr.write('Paste content is empty. Aborting...\n')
-            return
-        
         new_paste_data = self.pastebin.create_paste(
                 api_paste_code,
                 user_key,
