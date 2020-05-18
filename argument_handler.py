@@ -13,12 +13,9 @@ def _format_args(args, drop_args):
     return op_args
 
 def _handle_args(args, drop_args):
-    print(args)
-
     if args.fetch_dev_key:
         user_name = input('Username: ')
         fetch_dev_key(user_name)
-        # Fix it for wrong logins
     else:
         dev_key = Config.read_dev_key()
         c = Controller(dev_key)
@@ -46,7 +43,9 @@ def _handle_args(args, drop_args):
 class Parser:
     def __init__(self):
         self.drop_args = [] # arguments to be removed from the main arguments namespace
-
+        self.parser = None
+    
+    def prepare(self):
         self.parser = argparse.ArgumentParser(
                 description='Pastebin on terminal.',
                 epilog='A super helpful epilog',
@@ -66,23 +65,6 @@ class Parser:
                 help=''
         )
         self.drop_args.append(subparsers.dest)
-
-        ## user_manage
-        #register_parser = subparsers.add_parser(
-        #        'user_manage',
-        #        help='operations related to managing users in the local database'
-        #)
-        #user_op = user_manage_parser.add_mutually_exclusive_group()
-        #user_op.add_argument(
-        #        '--register',
-        #        metavar='user',
-        #        help='register a user in the local database'
-        #)
-        #user_op.add_argument(
-        #        '--remove',
-        #        metavar='user',
-        #        help='remove a user from the local database'
-        #)
 
         # register
         register_parser = subparsers.add_parser(
