@@ -168,11 +168,14 @@ class Controller:
                         created_rows += self.paste_info.create(**p)
 
                         raw_paste_data = self.pastebin.fetch_raw_paste(
-                                user_key, paste_key)
+                                user_key,
+                                paste_key
+                        )
                         raw_paste = req.post(*raw_paste_data)['content']
 
                         created_rows += self.paste_text.create(
-                                paste_key, raw_paste
+                                paste_key,
+                                raw_paste
                         )
                         
         print(f'{updated_rows} rows updated')
@@ -202,31 +205,32 @@ class Controller:
                   api_paste_expire_date='N'):
         user_key = self.__login(user_name) if user_name is not None else ''
 
-        #try:
-        if input_file is not None:
-            with open(input_file) as f:
-                content = f.read()
-                api_paste_code = content if content != '' else None
-        else:
-            api_paste_code = self.__read_from_editor()
-        #except FileNotFoundError:
-        #    print(f'File "{input_file}" not found.')
-        #except EmptyPaste:
-        #    print(f'Aborted due to empty paste content.')
+        try:
+            if input_file is not None:
+                with open(input_file) as f:
+                    content = f.read()
+                    api_paste_code = content if content != '' else None
+            else:
+                api_paste_code = self.__read_from_editor()
+        except FileNotFoundError:
+            print(f'Coudn\'t create paste. File not found.')
+            raise
 
         if api_paste_code is None:
-            print('Couldn\'t create new paste')
+            print('Paste content is empty. Aborting...')
             return
-            #exit error
         
-        new_paste_data = self.pastebin.create_paste(api_paste_code, user_key,
-                api_paste_name, api_paste_format, api_paste_private,
-                api_paste_expire_date)
+        new_paste_data = self.pastebin.create_paste(
+                api_paste_code,
+                user_key,
+                api_paste_name,
+                api_paste_format,
+                api_paste_private,
+                api_paste_expire_date
+        )
         new_paste = req.post(*new_paste_data)
 
         print(new_paste['content'])
-
-        # exit success
 
     # fetch paste info locally
     def fetch_paste_info(self, paste_key):
