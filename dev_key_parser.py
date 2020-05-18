@@ -13,10 +13,10 @@ class KeyParser(HTMLParser):
 
     def handle_starttag(self, tag, attrs):
             for attr in attrs:
-                    if attr[0] == 'class' and attr[1] == 'code_box' \
-                        and not self.__code_once:
-                            self.__code_box = True
-                            self.__code_once = True
+                    if (attr[0] == 'class' and attr[1] == 'code_box' and
+                            not self.__code_once):
+                        self.__code_box = True
+                        self.__code_once = True
                     elif attr[0] == 'id' and attr[1] == 'header_members':
                         self.__is_logged = True
 
