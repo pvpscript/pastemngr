@@ -6,6 +6,10 @@ Better argparse [DONE]; better argument handler [DONE]; Test database reading ou
 Update manual and readme for 'list\_users' [DONE]; Fix fetch-dev-key for login error [DONE];
 Add prints to this readme.
 
+Create setup.py; Make it install dependencies automatically;
+
+Finish the argparse help; Use os.path to build paths in the config.py file;
+
 
 # Introduction
 Paste manager (pastemngr) is a command line tool for pastebin.com. By consuming
