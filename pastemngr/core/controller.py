@@ -44,7 +44,7 @@ class Controller:
         try:
             list_pastes_data = self.pastebin.list_user_pastes(user_key, 1)
             req.post(*list_pastes_data)
-        except req.BadApiRequest:
+        except req.BadApiRequestError:
             return False
 
         return True
