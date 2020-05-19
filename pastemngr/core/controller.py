@@ -4,11 +4,14 @@ import time
 import tempfile
 
 import getpass as gp
-import make_request as req
-import database as db
 
-from pastebin_api import Pastebin
 from subprocess import call
+
+import pastemngr
+import pastemngr.api.make_request as req
+import pastemngr.db.database as db
+
+from pastemngr.api.pastebin_api import Pastebin
 
 class EmptyPasteError(Exception):
     """ raised when trying to create a paste with empty content """

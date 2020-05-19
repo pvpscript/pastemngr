@@ -1,8 +1,10 @@
 import requests
 import getpass
 
-from config import Config
 from html.parser import HTMLParser
+
+import pastemngr
+from pastemngr.core.config import Config
 
 class KeyParser(HTMLParser):
     __code_box = False

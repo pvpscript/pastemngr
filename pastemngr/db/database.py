@@ -1,6 +1,7 @@
 import sys
 
-from connection import Connect
+import pastemngr
+from pastemngr.db.connection import Connect
 
 class Database:
     def __init__(self):

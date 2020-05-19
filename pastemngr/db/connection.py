@@ -1,7 +1,8 @@
 import sys
 import sqlite3
 
-from config import Config
+import pastemngr
+from pastemngr.core.config import Config
 
 class Connect:
     __instance = None

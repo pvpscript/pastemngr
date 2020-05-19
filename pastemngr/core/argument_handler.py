@@ -1,9 +1,10 @@
 import sys
 import argparse
 
-from controller import Controller
-from config import Config
-from dev_key_parser import fetch_dev_key
+import pastemngr
+from pastemngr.core.controller import Controller
+from pastemngr.core.config import Config
+from pastemngr.parser.dev_key_parser import fetch_dev_key
 
 def _format_args(args, drop_args):
     op_args = vars(args)

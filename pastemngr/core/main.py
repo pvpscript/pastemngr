@@ -1,8 +1,10 @@
 import sys
 
-from controller import EmptyPasteError
-from argument_handler import Parser
-from make_request import BadApiRequestError
+import pastemngr
+
+from pastemngr.core.controller import EmptyPasteError
+from pastemngr.core.argument_handler import Parser
+from pastemngr.api.make_request import BadApiRequestError
 
 def main():
     parser = Parser()
