@@ -1,12 +1,35 @@
 import sys
 
 import pastemngr
-from pastemngr.db.connection import Connect
+import pastemngr.db.connection as con
+
+class DatabaseError(Exception):
+    """An ambiguous database error occurred."""
+
+    def __init__(self, msg, orig_exception):
+        super().__init__(f'{msg}: {orig_exception}')
+        self.orig_exception = orig_exception
+        self.errno = 2
+
+class CreationError(DatabaseError):
+    """An error occurred during table creation"""
+
+class ReadError(DatabaseError):
+    """An error occurred during table read"""
+
+class UpdateError(DatabaseError):
+    """An error occurred during table update"""
+
+class DeleteError(DatabaseError):
+    """An error occurred during table delete"""
 
 class Database:
     def __init__(self):
-        self.connection = Connect.get_instance().get_connection()
-        self.cursor = self.connection.cursor()
+        try:
+            self.connection = con.Connect.get_instance().get_connection()
+            self.cursor = self.connection.cursor()
+        except con.ConnectionError as e:
+            raise DatabaseError('Unable to connect', e)
 
 class User(Database):
     # Default operations
@@ -61,16 +84,19 @@ class User(Database):
 
             self.connection.commit()
         except Exception as e:
-            print(f'An error occurred during creation: {e}', file=sys.stderr)
-
             self.connection.rollback()
+
+            raise CreateError('An error occurred during user creation', e)
         finally:
             return self.cursor.rowcount
 
     def read(self, user_name):
-        result = self.cursor.execute(self.READ, (user_name,)).fetchone()
+        try:
+            result = self.cursor.execute(self.READ, (user_name,)).fetchone()
 
-        return dict(result) if result is not None else None
+            return dict(result) if result is not None else None
+        except Exception as e:
+            raise ReadError('An error occurred during user read', e)
 
     def update(self, user_name, user_format_short, user_expiration,
                user_avatar_url, user_private, user_website, user_email,
@@ -83,9 +109,9 @@ class User(Database):
 
             self.connection.commit()
         except Exception as e:
-            print(f'An error occurred during update: {e}', file=sys.stderr)
-
             self.connection.rollback()
+
+            raise UpdateError('An error occurred during user update', e)
         finally:
             return self.cursor.rowcount
 
@@ -95,9 +121,9 @@ class User(Database):
             
             self.connection.commit()
         except Exception as e:
-            print(f'An error occurred during deletion: {e}', file=sys.stderr)
-
             self.connection.rollback()
+
+            raise DeleteException('An error occurred during user deletion', e)
         finally:
             return self.cursor.rowcount
 
@@ -107,23 +133,28 @@ class User(Database):
 
             self.connection.commit()
         except Exception as e:
-            print(f'An error occurred while modifying key: {e}',
-                    file=sys.stderr)
-
             self.connection.rollback()
+
+            raise UpdateError('An error occurred while updating user key', e)
         finally:
             return self.cursor.rowcount
 
     def list_user_pastes(self, user_name):
-        result = self.cursor.execute(self.LIST_USER_PASTES, (user_name,))
+        try:
+            result = self.cursor.execute(self.LIST_USER_PASTES, (user_name,))
 
-        return [dict(e) for e in result] if result is not None else None
-
+            return [dict(e) for e in result] if result is not None else None
+        except Exception as e:
+            raise ReadError('An error occurred while reading user pastes', e)
 
     def all(self):
-        result = self.cursor.execute(self.ALL).fetchall()
+        try:
+            result = self.cursor.execute(self.ALL).fetchall()
 
-        return [dict(e) for e in result] if result is not None else None
+            return [dict(e) for e in result] if result is not None else None
+        except Exception as e:
+            raise ReadError('An error occurred while retrieving all users', e)
+
 
 
 class PasteInfo(Database):
@@ -167,16 +198,19 @@ class PasteInfo(Database):
 
             self.connection.commit()
         except Exception as e:
-            print(f'An error occurred during creation: {e}', file=sys.stderr)
-
             self.connection.rollback()
+
+            raise CreateError('An error occurred during paste info creation', e)
         finally:
             return self.cursor.rowcount
 
     def read(self, paste_key):
-        result = self.cursor.execute(self.READ, (paste_key,)).fetchone()
-        
-        return dict(result) if result is not None else None
+        try:
+            result = self.cursor.execute(self.READ, (paste_key,)).fetchone()
+            
+            return dict(result) if result is not None else None
+        except Exception as e:
+            raise ReadError('An error occurred during paste info read', e)
 
     def update(self, paste_key, paste_date, paste_title, paste_size,
                paste_expire_date, paste_private, paste_format_long,
@@ -189,9 +223,9 @@ class PasteInfo(Database):
 
             self.connection.commit()
         except Exception as e:
-            print(f'An error occurred during update: {e}', file=sys.stderr)
-
             self.connection.rollback()
+
+            raise UpdateError('An error occurred during paste info update', e)
         finally:
             return self.cursor.rowcount
 
@@ -201,16 +235,19 @@ class PasteInfo(Database):
 
             self.connection.commit()
         except Exception as e:
-            print(f'An error occurred during deletion: {e}', file=sys.stderr)
-
             self.connection.rollback()
+
+            raise DeleteError('An error occurred during paste info deletion', e)
         finally:
             return self.cursor.rowcount
 
     def all(self):
-        result = self.cursor.execute(self.ALL).fetchall()
+        try:
+            result = self.cursor.execute(self.ALL).fetchall()
 
-        return [dict(e) for e in result] if result is not None else None
+            return [dict(e) for e in result] if result is not None else None
+        except Exception as e:
+            raise ReadError('An error occurred while reading all pastes info', e)
 
 class PasteText(Database):
     # Default operations
@@ -243,16 +280,19 @@ class PasteText(Database):
 
             self.connection.commit()
         except Exception as e:
-            print(f'An error occurred during creation: {e}', file=sys.stderr)
-
             self.connection.rollback()
+
+            raise CreateError('An error occurred during paste text creation', e)
         finally:
             return self.cursor.rowcount
 
     def read(self, paste_key):
-        result = self.cursor.execute(self.READ, (paste_key,)).fetchone()
+        try:
+            result = self.cursor.execute(self.READ, (paste_key,)).fetchone()
 
-        return dict(result) if result is not None else None
+            return dict(result) if result is not None else None
+        except Exception as e:
+            raise ReadError('An error occurred while reading paste text', e)
 
     def update(self, paste_key, paste):
         try:
@@ -260,9 +300,9 @@ class PasteText(Database):
 
             self.connection.commit()
         except Exception as e:
-            print(f'An error occurred during update: {e}', file=sys.stderr)
-
             self.connection.rollback()
+
+            raise UpdateError('An error occurred during paste text update', e)
         finally:
             return self.cursor.rowcount
 
@@ -272,13 +312,16 @@ class PasteText(Database):
 
             self.connection.commit()
         except Exception as e:
-            print(f'An error occurred during deletion: {e}', file=sys.stderr)
-
             self.connection.rollback()
+
+            raise DeleteError('An error occurred during paste text deletion', e)
         finally:
             return self.cursor.rowcount
 
     def all(self):
-        result = self.cursor.execute(self.ALL).fetchall()
+        try:
+            result = self.cursor.execute(self.ALL).fetchall()
 
-        return [dict(e) for e in result] if result is not None else None
+            return [dict(e) for e in result] if result is not None else None
+        except Exception as e:
+            raise ReadError('An error occurred while reading all paste texts', e)

@@ -4,6 +4,9 @@ import sqlite3
 import pastemngr
 from pastemngr.core.config import Config
 
+class ConnectionError(Exception):
+    """An error occurred during the database connection."""
+
 class Connect:
     __instance = None
 
@@ -31,8 +34,8 @@ class Connect:
                 cur = c.cursor()
 
                 cur.execute('PRAGMA foreign_keys = ON;')
-        except sqlite3.OperationalError:
-            print("Couldn't connect to database.", file=sys.stderr)
+        except sqlite3.OperationalError as e:
+            raise ConnectionError
 
         return connection
 

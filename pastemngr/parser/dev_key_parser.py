@@ -6,6 +6,9 @@ from html.parser import HTMLParser
 import pastemngr
 from pastemngr.core.config import Config
 
+class KeyParserError(Exception):
+    """An error occurred while obtaining the dev_key"""
+
 class KeyParser(HTMLParser):
     __code_box = False
     __code_once = False
@@ -39,10 +42,13 @@ def fetch_dev_key(user_name):
             'submit_hidden': 'submit_hidden'
     }
 
-    with requests.Session() as s:
-        s.post(login_url, data=payload)
+    try:
+        with requests.Session() as s:
+            s.post(login_url, data=payload)
 
-        api_res = s.get(api_page)
+            api_res = s.get(api_page)
+    except requests.RequestException as e:
+        raise KeyParserException
 
     parser = KeyParser()
     parser.feed(api_res.content.decode('UTF-8'))
