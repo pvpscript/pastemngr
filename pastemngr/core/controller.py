@@ -19,7 +19,6 @@ class ControlError(Exception):
     def __init__(self, msg, orig_exception):
         super(ControlError, self).__init__(f'{msg}: {orig_exception}')
         self.orig_exception = orig_exception
-        self.errno = 1
 
 class OperationFailedError(ControlError):
     """ An error occurred during a control operation """

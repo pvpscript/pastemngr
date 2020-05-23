@@ -9,7 +9,6 @@ class ApiError(Exception):
     def __init__(self, msg, orig_exception):
         super().__init__(f'{msg}: {orig_exception}')
         self.orig_exception = orig_exception
-        self.errno = 3
 
 class BadApiRequestError(Exception):
     """An API call returned an error"""

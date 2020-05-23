@@ -9,7 +9,6 @@ class DatabaseError(Exception):
     def __init__(self, msg, orig_exception):
         super().__init__(f'{msg}: {orig_exception}')
         self.orig_exception = orig_exception
-        self.errno = 2
 
 class CreationError(DatabaseError):
     """An error occurred during table creation"""

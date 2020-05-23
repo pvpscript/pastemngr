@@ -9,9 +9,6 @@ from pastemngr.core.config import Config
 class KeyParserError(Exception):
     """An error occurred while obtaining the dev_key"""
 
-    def __init__(self):
-        self.errno = 4 << 1
-
 class KeyParser(HTMLParser):
     __code_box = False
     __code_once = False
