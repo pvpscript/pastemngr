@@ -1,6 +1,6 @@
-import setuptools
+from setuptools import setup
 
-setuptools.setup(
+setup(
         name='pastemngr',
         description='A powerful pastebin manager for the command line.',
         version='1.0.0',
@@ -16,10 +16,20 @@ setuptools.setup(
             'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
             'Operating System :: Unix',
             'Programming Language :: Python :: 3',
-            'Topic :: Utilities'
+            'Topic :: Utilities',
         ],
 
-        scripts=['pastemngr.py'],
+        scripts=['scripts/pastemngr'],
+
+        data_files=[
+            ('share/man/man1', [
+                'doc/pastemngr.1',
+            ]),
+            ('share/doc/pastemngr', [
+                'README.md',
+            ]),
+        ],
+
 
         packages=(
             'pastemngr',
