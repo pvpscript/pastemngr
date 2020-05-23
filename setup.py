@@ -1,4 +1,9 @@
+import os
+
 from setuptools import setup
+
+with open(os.path.join(os.path.dirname(__file__), 'requirements.txt')) as r:
+    install_requires = r.read().splitlines()
 
 setup(
         name='pastemngr',
@@ -39,6 +44,6 @@ setup(
             'pastemngr.parser',
         ),
 
-        requires='requests',
+        requires=install_requires,
         python_requires='>=3.6',
 )
