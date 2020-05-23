@@ -2,13 +2,11 @@
 A powerful pastebin manager for the command line
 
 TODO:
-Better argparse [DONE]; better argument handler [DONE]; Test database reading outputs [DONE];
-Update manual and readme for 'list\_users' [DONE]; Fix fetch-dev-key for login error [DONE];
-Add prints to this readme.
+Revise developer key explanation; Revise devkey vs userkey explanation; Add prints to this readme.
 
-Create setup.py; Make it install dependencies automatically;
+Create setup.py [DONE]; Make it install dependencies automatically [DONE];
 
-Finish the argparse help; Use os.path to build paths in the config.py file;
+Finish the argparse help [DONE]; Use os.path to build paths in the config.py file [DONE];
 
 
 # Introduction
