@@ -26,7 +26,7 @@ class Config:
     def read_dev_key(self):
         try:
             file_ref = open(self.entry('dev_key'), 'r')
-        except FileNotFoundError:
+        except FileNotFoundError as e:
             raise DevKeyNotFoundError('dev_key file not found, please create it and provide a developer key.', e)
 
         dev_key = file_ref.readline().rstrip('\r\n')
