@@ -9,6 +9,9 @@ from pastemngr.core.config import Config
 class KeyParserError(Exception):
     """An error occurred while obtaining the dev_key"""
 
+    def __init__(self):
+        self.errno = 4 << 1
+
 class KeyParser(HTMLParser):
     __code_box = False
     __code_once = False
@@ -48,7 +51,7 @@ def fetch_dev_key(user_name):
 
             api_res = s.get(api_page)
     except requests.RequestException as e:
-        raise KeyParserException
+        raise KeyParserError
 
     parser = KeyParser()
     parser.feed(api_res.content.decode('UTF-8'))
