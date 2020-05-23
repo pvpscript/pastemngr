@@ -48,10 +48,7 @@ class Parser:
         self.parser = None
     
     def prepare(self):
-        self.parser = argparse.ArgumentParser(
-                description='Pastebin on terminal.',
-                epilog='A super helpful epilog',
-        )
+        self.parser = argparse.ArgumentParser()
         main_arg = self.parser.add_argument(
                 '--fetch-dev-key',
                 action='store_true',
@@ -61,7 +58,7 @@ class Parser:
         self.drop_args.append(main_arg.dest)
 
         subparsers = self.parser.add_subparsers(
-                title='An interesting title',
+                title='Input commands',
                 metavar='<command>',
                 dest='command',
                 help=''
