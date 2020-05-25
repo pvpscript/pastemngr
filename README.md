@@ -66,7 +66,7 @@ by the image below;
 ![alt text][api-example]
 4. In this section, there will be a text block containing a code
 e.g. `b026324c6904b2a9cb4b88d6d61c81d1`. Copy the code found there;
-5. Go to the configuration folder, discussed below, create a blank
+5. Go to the configuration directory, discussed below, create a blank
 file called `api_key` and paste the code found at the pastebin site;
 6. Save the file.
 
@@ -92,11 +92,11 @@ user info, which includes the user key.
 `--fetch-dev-key`
 
 Request a pastebin login, fetch the account's developer key and save  it
-locally, at the config folder. This application needs a developer key to
+locally, at the config directory. This application needs a developer key to
 access the pastebin API, otherwise it won't work.
 
 ## Commands
-List of accepted commands. To information about the options, refer to
+List of accepted commands. For more information about the options, refer to
 `pastemngr(1)` manual page.
 
 #### list\_users
@@ -107,7 +107,8 @@ List registered users in the local database.
 #### register
 `register [-u USER] [--username USER]`
 
-Register the given user in the local database.
+Register the given user in the local database. This will fetch the user key
+associated with the given user name, and store it locally.
 
 #### remove 
 `remove [-u USER] [--username USER]`
