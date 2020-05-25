@@ -1,7 +1,7 @@
 PYTHON = $(shell \
-	   (python -c "import sys; sys.exit(sys.version >= '3.6'" && \
-	    which python) || (which python3)
-	   )
+	   (python -c "import sys; sys.exit(sys.version >= '3.6')" && \
+	    which python) || (which python3) \
+	  )
 ifeq ($(PYTHON),)
 	$(error No suitable python found.)
 endif
@@ -21,3 +21,5 @@ install:
 
 compile: clean
 	PYTHONOPTIMIZE=${PYOPTIMIZE} ${PYTHON} -m compileall -q pastemngr
+
+.PHONY: clean install compile
