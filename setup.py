@@ -2,12 +2,16 @@ import os
 
 from setuptools import setup
 
+with open(os.path.join(os.path.dirname(__file__), 'README.md')) as rd:
+    long_description = rd.read()
+
 with open(os.path.join(os.path.dirname(__file__), 'requirements.txt')) as r:
     install_requires = r.read().splitlines()
 
 setup(
         name='pastemngr',
         description='A powerful pastebin manager for the command line.',
+        long_description=long_description,
         version='1.0.0',
         author='pvpscript',
         url='https://github.com/pvpscript/pastemngr',
