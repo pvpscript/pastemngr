@@ -12,6 +12,7 @@ setup(
         name='pastemngr',
         description='A powerful pastebin manager for the command line.',
         long_description=long_description,
+        long_description_content_type='text/markdown',
         version='1.0.0',
         author='pvpscript',
         url='https://github.com/pvpscript/pastemngr',
