@@ -1,68 +1,76 @@
 # pastemngr
 A powerful pastebin manager for the command line
 
-TODO:
-Revise developer key explanation; Revise devkey vs userkey explanation; Add prints to this readme.
-
-Create setup.py [DONE]; Make it install dependencies automatically [DONE];
-
-Finish the argparse help [DONE]; Use os.path to build paths in the config.py file [DONE];
-
-
 # Introduction
 Paste manager (pastemngr) is a command line tool for pastebin.com. By consuming
 the pastebin service API, this tool has the hability to create and retrieve
 pastes from the command line as well as fetching information regarding users
 and pastes (locally and online).
 
-# Developer key
-It's very relevant to emphasize the importance of the developer key, since this
-application uses the API provided by pastebin.com.
+## Developer key
+Since this application makes use of an API, a developer key is needed. The key
+in question is provided by [pastebin.com](pastebin.com).
+If the key is not present in the configurations, `pastemngr` won't work
+at all.
 
-Their API requires a developer key, therefore, every operation that is
-executed by it needs this key as a parameter, or it won't work at all.
+## User key
+This is another key used by the `pastebin` API, but this one is fetched by
+the API itself and it's used to execute operations that are related to a
+specific pastebin user.
 
-## Developer Key vs User Key
-The API provided by pastebin make use of two types of keys, the **developer key**
-and the **user key**.
+For example, when posting a paste as a given user X, the API has to know its
+user key, which will be provided in the **POST** payload.
 
-The first will be the _master key_, the one that will allow this application to
-execute any of the possible operations provided by the API, meaning that
-this key is only responsible for providing access. That's all.
+# Instalation
+You can install pastemngr through PyPI: `pip install pastemngr`
 
-The latter, is the key that will be used for user specific operations, such
-as posting pastes associated with an account or fetching user informations,
-such as account details or pastes owned by an account. For example, when a
-paste is associated with a user, this key comes into place making it's
-owner the author of the posted paste. Also, when running an operation to fetch
-data from a user, this key tells the API which user the application is
-fetching information from.
+## Manual installation
+This is the process for installing pastemngr from a clone.
+```
+git clone https://github.com/pvpscript/pastemngr
+cd pastemngr
+```
 
-## Getting the developer key
+Then run,
+`sudo make install`
+
+Which is the same as
+```
+python setup.py install --record=install_log.txt --prefix=/usr/local
+--root=/ --optimize=1
+```
+
+The installation log will be saved as `install_log.txt`
+
+# Getting the developer key
 There are two ways of getting this key and applying it to this program.
 The first one is described below.
 
-### First method (automatically fetching the key)
+## First method (automatically fetching the key)
 This method is the easiest, but it can be unreliable in some situations, since
-it depends on html crawling, if the pastebin site's is changed, this might
-not work.
+it depends on html crawling, and sometimes the pastebin login page will ask
+for a **captcha** resolution, so this might not work everytime.
 
 To fetch the key and save it locally, simply run:
 `pastemngr --fetch-dev-key`
 
-### Second method (doing it manually)
+## Second method (doing it manually)
 This section is a guide through the process of inserting the developer
-key meanually into this app's configuration. It's important to have this
-solution at hand, since the first one is prone to failure.
+key manually into pastemngr's configuration. It's important to have this
+solution at hand, since the automatic process is highly prone to failure.
 
 1. Login to the [pastebin.com](https://www.pastebin.com) website;
 2. Access the [api page](https://pastebin.com/api);
-3. Look for a section called "**Your Unique Developer API Key**";
+3. Look for a section called "**Your Unique Developer API Key**" as shown
+by the image below;
+![alt text][api-example]
 4. In this section, there will be a text block containing a code
-such as `b026324c6904b2a9cb4b88d6d61c81d1`. Copy the code found there;
-5. Go to the configuration folder, discussed below, and create a blank
+e.g. `b026324c6904b2a9cb4b88d6d61c81d1`. Copy the code found there;
+5. Go to the configuration folder, discussed below, create a blank
 file called `api_key` and paste the code found at the pastebin site;
 6. Save the file.
+
+[api-example]: https://i.imgur.com/ub52AWL.png "API key example"
 
 # Configuration
 The configuration directory is located under `$XDG_CONFIG_HOME/pastemngr/`
@@ -77,14 +85,10 @@ This is an **automatically generated** database file that will keep local
 informations, such as pastes info, pastes text and registered accounts with
 user info, which includes the user key. 
 
-## Usage
+# Usage
 `pastemngr [OPTIONS] [<command>]`
 
 ## Options
-`--list-users`
-
-List registered users in the local database.
-
 `--fetch-dev-key`
 
 Request a pastebin login, fetch the account's developer key and save  it
@@ -94,6 +98,11 @@ access the pastebin API, otherwise it won't work.
 ## Commands
 List of accepted commands. To information about the options, refer to
 `pastemngr(1)` manual page.
+
+#### list\_users
+`list_users [--raw]`
+
+List registered users in the local database.
 
 #### register
 `register [-u USER] [--username USER]`
@@ -145,6 +154,3 @@ for the given user.
 `update_db [-u USER] [--username USER]`
 
 Update the local database for every registered user or for the given user.
-
-# Instalation
-How to install this application
