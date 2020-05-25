@@ -21,6 +21,11 @@ specific pastebin user.
 For example, when posting a paste as a given user X, the API has to know its
 user key, which will be provided in the **POST** payload.
 
+# Dependencies
+* Python (>=3.6);
+* `requests` module to perform HTTP requests;
+* A text editor (`nano` by default).
+
 # Instalation
 You can install pastemngr through PyPI: `pip install pastemngr`
 
