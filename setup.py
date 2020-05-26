@@ -40,6 +40,11 @@ setup(
             ]),
         ],
 
+        package_data = {
+            'pastemngr': [
+                'db/model.sql',
+            ],
+        },
 
         packages=(
             'pastemngr',
