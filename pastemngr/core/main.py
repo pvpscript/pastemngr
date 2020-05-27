@@ -12,7 +12,7 @@ def main():
     try:
         parser.run()
     except ControlError as e:
-        print(f'Execution error: {e}', file=sys.stderr)
+        print(f'Execution error -> {e}', file=sys.stderr)
         return 1
 
     return 0
