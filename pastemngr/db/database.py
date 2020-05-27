@@ -25,7 +25,7 @@ class DeleteError(DatabaseError):
 class Database:
     def __init__(self):
         try:
-            self.connection = con.Connect.get_instance().get_connection()
+            self.connection = con.Connect.get_connection()
             self.cursor = self.connection.cursor()
         except con.ConnectionError as e:
             raise DatabaseError('Unable to connect', e)
