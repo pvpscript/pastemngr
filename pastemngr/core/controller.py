@@ -184,39 +184,42 @@ class Controller:
             updated_rows = 0
             created_rows = 0
 
-            if user_name is None:
-                users = self.user.all()
+            users = (
+                    self.user.all()
+                    if user_name is None 
+                    else [{'user_name': user_name}]
+            )
 
-                for u in users:
-                    user_name = u['user_name']
-                    user_key = self.__login(user_name)
+            for u in users:
+                user_name = u['user_name']
+                user_key = self.__login(user_name)
 
-                    user_info_data = self.pastebin.fetch_user_info(user_key)
-                    user_info = req.post(*user_info_data)['content'][0]
-                    updated_rows += self.user.update(**user_info)
+                user_info_data = self.pastebin.fetch_user_info(user_key)
+                user_info = req.post(*user_info_data)['content'][0]
+                updated_rows += self.user.update(**user_info)
 
-                    pastes_data = self.pastebin.list_user_pastes(user_key)
-                    pastes = req.post(*pastes_data)['content']
+                pastes_data = self.pastebin.list_user_pastes(user_key)
+                pastes = req.post(*pastes_data)['content']
 
-                    for p in pastes:
-                        paste_key = p['paste_key'] 
+                for p in pastes:
+                    paste_key = p['paste_key'] 
 
-                        if self.paste_info.read(paste_key) is not None:
-                            updated_rows += self.paste_info.update(**p)
-                        else:
-                            p = {**p, 'owner': user_name}
-                            created_rows += self.paste_info.create(**p)
+                    if self.paste_info.read(paste_key) is not None:
+                        updated_rows += self.paste_info.update(**p)
+                    else:
+                        p = {**p, 'owner': user_name}
+                        created_rows += self.paste_info.create(**p)
 
-                            raw_paste_data = self.pastebin.fetch_raw_paste(
-                                    user_key,
-                                    paste_key
-                            )
-                            raw_paste = req.post(*raw_paste_data)['content']
+                        raw_paste_data = self.pastebin.fetch_raw_paste(
+                                user_key,
+                                paste_key
+                        )
+                        raw_paste = req.post(*raw_paste_data)['content']
 
-                            created_rows += self.paste_text.create(
-                                    paste_key,
-                                    raw_paste
-                            )
+                        created_rows += self.paste_text.create(
+                                paste_key,
+                                raw_paste
+                        )
                             
             print(f'{updated_rows} rows updated')
             print(f'{created_rows} rows created')
