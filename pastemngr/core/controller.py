@@ -142,7 +142,7 @@ class Controller:
                 if self.user.create(**user_info) == 1:
                     print('User succesfully registered')
         except (db.DatabaseError, req.BadApiRequestError) as e:
-            raise ControlException('Couldn\'t register new user', e)
+            raise ControlError('Couldn\'t register new user', e)
 
     # fetch user info from pastebin
     # if local is set to True, fetch locally instead
@@ -243,7 +243,7 @@ class Controller:
                 if not raw:
                     print('{:-^80}'.format(''))
         except (db.DatabaseError, req.BadApiRequestError) as e:
-            raise ControlException('Couldn\'t list user pastes', e)
+            raise ControlError('Couldn\'t list user pastes', e)
 
     def new_paste(self, input_file=None, user_name=None, api_paste_name='',
                   api_paste_format='text', api_paste_private='',
