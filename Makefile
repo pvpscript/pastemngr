@@ -5,10 +5,10 @@ PYTHON = $(shell \
 ifeq ($(PYTHON),)
 	$(error No suitable python found.)
 endif
-SETUPOPTS = "--record=install_log.txt"
-DESTDIR = /
-PREFIX = /usr/local
-PYOPTIMIZE = 1
+SETUPOPTS ?= "--record=install_log.txt"
+DESTDIR ?= /
+PREFIX ?= /usr
+PYOPTIMIZE ?= 1
 
 clean:
 	find pastemngr -regex .*.py[co] -delete
