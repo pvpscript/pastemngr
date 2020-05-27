@@ -41,7 +41,7 @@ Then run,
 
 Which is the same as
 ```
-python setup.py install --record=install_log.txt --prefix=/usr/local
+python setup.py install --record=install_log.txt --prefix=/usr
 --root=/ --optimize=1
 ```
 
