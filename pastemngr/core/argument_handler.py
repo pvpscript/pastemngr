@@ -15,6 +15,9 @@ def _format_args(args, drop_args):
     return op_args
 
 def _handle_args(args, drop_args):
+    # Try to create the config folder if it doesn't exist.
+    Config.create_config_folder()
+
     if args.fetch_dev_key:
         user_name = input('Username: ')
         fetch_dev_key(user_name)

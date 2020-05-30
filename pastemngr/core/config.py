@@ -18,6 +18,13 @@ class Config:
     )
 
     @classmethod
+    def create_config_folder(self):
+        try:
+            os.mkdir(self.__config_dir)
+        except FileExistsError:
+            pass
+
+    @classmethod
     def entry(self, name):
         return os.path.join(self.__config_dir, name)
 
