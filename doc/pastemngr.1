@@ -3,8 +3,8 @@
 pastemngr \- A powerful pastebin manager for the command line.
 .SH SYNOPSIS
 .B pastemngr
-[\fIOPTIONS\fR]
 [\fB\fI<command>\fR]
+[\fIOPTIONS\fR]
 .SH DESCRIPTION
 .B pastemngr
 manages pastes from pastebin.com and stores informations locally about users and pastes. This tool has the hability to create and retrieve pastes from the command line as well as fetching information regarding users and pastes (locally and online).
@@ -42,18 +42,18 @@ Show informations about the given user.
 .RE
 .PP
 .BR new_paste 
-[\fB\-\-input-file\fR \fIFILE\fR]
+[\fB-i\fR \fIFILE\fR, \fB\-\-input-file\fR \fIFILE\fR]
 [\fB\-u\fR \fIUSER\fR, \fB\-\-username\fR \fIUSER\fR]
-[\fB\-\-title\fR \fINAME\fR]
-[\fB\-\-format\fR \fIFMT\fR]
-[\fB\-\-visibility\fR \fIN\fR]
-[\fB\-\-expire\fR \fITIME\fR]
+[\fB-t\fR \fINAME\fR, \fB\-\-title\fR \fINAME\fR]
+[\fB-f\fR \fIFMT\fR, \fB\-\-format\fR \fIFMT\fR]
+[\fB-v\fR \fIN\fR, \fB\-\-visibility\fR \fIN\fR]
+[\fB-e\fR \fITIME\fR, \fB\-\-expire\fR \fITIME\fR]
 .RS
 Create a new paste and upload it to pastebin.
 .RE
 .PP
 .BR fetch_paste
-[\fB\-\-paste-key\fR \fIKEY\fR]
+[\fB-k\fR \fIKEY\fR, \fB\-\-paste-key\fR \fIKEY\fR]
 [\fB\-\-local\fR]
 .RS
 Fetch the paste identified by the given key.
@@ -69,14 +69,14 @@ List pastes belonging to the given user.
 .PP
 .BR delete_paste 
 [\fB\-u\fR \fIUSER\fR, \fB\-\-username\fR \fIUSER\fR]
-[\fB\-\-paste-key\fR \fIKEY\fR]
+[\fB-k\fR \fIKEY\fR, \fB\-\-paste-key\fR \fIKEY\fR]
 [\fB\-\-local\fR]
 .RS
 Remove the paste identified by the given key.
 .RE
 .PP
 .BR paste_info 
-[\fB\-\-paste-key\fR \fIKEY\fR]
+[\fB-k\fR \fIKEY\fR, \fB\-\-paste-key\fR \fIKEY\fR]
 .RS
 Show informations about the paste identified by the given key.
 .RE
@@ -97,22 +97,22 @@ Update the local database for every registered user or for the given user.
 .BR \-u ", " \-\-username=\fIUSER\fR
 Set the username for executing the operation on.
 .TP
-.BR \-\-input-file=\fIFILE\fR
+.BR \-i ", " \-\-input-file=\fIFILE\fR
 Set the input file to be uploaded as a paste. Open a text editor if left blank.
 .TP
-.BR \-\-title=\fINAME\fR
+.BR \-t ", " \-\-title=\fINAME\fR
 Set the paste title. Default is 'Untitled'.
 .TP
-.BR \-\-format=\fIFMT\fR
+.BR \-f ", " \-\-format=\fIFMT\fR
 Set the paste format. Default is 'text'. Check the end of this manual for a complete list of accepted formats.
 .TP
-.BR \-\-visibility=\fIN\fR
+.BR \-v ", " \-\-visibility=\fIN\fR
 Set the paste visibility between '0' (public), '1' (unlisted) and '2' (private). Default is 0.
 .TP
-.BR \-\-expire=\fITIME\fR
+.BR \-e ", " \-\-expire=\fITIME\fR
 Set the expire time for the paste. Default is 'N'. Check the end of this manual for a complete list of accepted expire times.
 .TP
-.BR \-\-paste-key=\fIKEY\fR
+.BR \-k ", " \-\-paste-key=\fIKEY\fR
 The key referring to a paste.
 e.g.: https://pastebin.com/UIFdu235s (the key is UIFdu235s).
 .TP

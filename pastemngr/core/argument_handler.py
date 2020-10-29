@@ -137,13 +137,13 @@ class Parser:
                 dest='user_name'
         )
         new_paste_parser.add_argument(
-                '--title',
+                '-t', '--title',
                 metavar='NAME',
                 help='paste title',
                 dest='api_paste_name'
         )
         new_paste_parser.add_argument(
-                '--format',
+                '-f', '--format',
                 metavar='FMT',
                 choices=('4cs', '6502acme', '6502kickass', '6502tasm', 'abap',
                     'actionscript', 'actionscript3', 'ada', 'aimms', 'algol68',
@@ -192,14 +192,14 @@ class Parser:
                 dest='api_paste_format'
         )
         new_paste_parser.add_argument(
-                '--visibility',
+                '-v', '--visibility',
                 metavar='N',
                 choices=('0', '1', '2'),
                 help='paste visibility. (%(choices)s)',
                 dest='api_paste_private'
         )
         new_paste_parser.add_argument(
-                '--expire',
+                '-e', '--expire',
                 metavar='TIME',
                 choices=('N', '10M', '1H', '1D', '1W', '2W', '1M', '6M', '1Y'),
                 help='paste expiration date. (%(choices)s)',
@@ -212,7 +212,7 @@ class Parser:
                 help='fetch a paste\'s content'
         )
         fetch_paste_parser.add_argument(
-                '--paste-key',
+                '-k', '--paste-key',
                 metavar='KEY',
                 required=True,
                 help='paste to fetch',
@@ -263,7 +263,7 @@ class Parser:
                 dest='user_name'
         )
         delete_parser.add_argument(
-                '--paste-key',
+                '-k', '--paste-key',
                 metavar='KEY',
                 required=True,
                 help='paste id for deletion',
@@ -283,7 +283,7 @@ class Parser:
                 dest='user_name'
         )
         purge_parser.add_argument(
-                '--paste-key',
+                '-k', '--paste-key',
                 metavar='KEY',
                 required=True,
                 help='paste id for deletion',
@@ -299,7 +299,7 @@ class Parser:
                 '''
         )
         paste_info_parser.add_argument(
-                '--paste-key',
+                '-k', '--paste-key',
                 metavar='KEY',
                 required=True,
                 help='key of the paste to fetch information from',
