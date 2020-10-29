@@ -22,22 +22,19 @@ List registered users in the local database.
 .RE
 .PP
 .BR register
-[\fB\-u\fR \fIUSER\fR]
-[\fB\-\-username\fR \fIUSER\fR]
+[\fB\-u\fR \fIUSER\fR, \fB\-\-username\fR \fIUSER\fR]
 .RS
 Register the given user in the local database. This will fetch the user key associated with the given user name, and store it locally.
 .RE
 .PP
 .BR remove 
-[\fB\-u\fR \fIUSER\fR]
-[\fB\-\-username\fR \fIUSER\fR]
+[\fB\-u\fR \fIUSER\fR, \fB\-\-username\fR \fIUSER\fR]
 .RS
 Remove the given user from the local database.
 .RE
 .PP
 .BR user_info 
-[\fB\-u\fR \fIUSER\fR]
-[\fB\-\-username\fR \fIUSER\fR]
+[\fB\-u\fR \fIUSER\fR, \fB\-\-username\fR \fIUSER\fR]
 [\fB\-\-local\fR]
 [\fB\-\-raw\fR]
 .RS
@@ -46,8 +43,7 @@ Show informations about the given user.
 .PP
 .BR new_paste 
 [\fB\-\-input-file\fR \fIFILE\fR]
-[\fB\-u\fR \fIUSER\fR]
-[\fB\-\-username\fR \fIUSER\fR]
+[\fB\-u\fR \fIUSER\fR, \fB\-\-username\fR \fIUSER\fR]
 [\fB\-\-title\fR \fINAME\fR]
 [\fB\-\-format\fR \fIFMT\fR]
 [\fB\-\-visibility\fR \fIN\fR]
@@ -64,8 +60,7 @@ Fetch the paste identified by the given key.
 .RE
 .PP
 .BR list_pastes 
-[\fB\-u\fR \fIUSER\fR]
-[\fB\-\-username\fR \fIUSER\fR]
+[\fB\-u\fR \fIUSER\fR, \fB\-\-username\fR \fIUSER\fR]
 [\fB\-\-local\fR]
 [\fB\-\-raw\fR]
 .RS
@@ -73,8 +68,7 @@ List pastes belonging to the given user.
 .RE
 .PP
 .BR delete_paste 
-[\fB\-u\fR \fIUSER\fR]
-[\fB\-\-username\fR \fIUSER\fR]
+[\fB\-u\fR \fIUSER\fR, \fB\-\-username\fR \fIUSER\fR]
 [\fB\-\-paste-key\fR \fIKEY\fR]
 [\fB\-\-local\fR]
 .RS
@@ -88,15 +82,13 @@ Show informations about the paste identified by the given key.
 .RE
 .PP
 .BR remove_expired 
-[\fB\-u\fR \fIUSER\fR]
-[\fB\-\-username\fR \fIUSER\fR]
+[\fB\-u\fR \fIUSER\fR, \fB\-\-username\fR \fIUSER\fR]
 .RS
 Remove expired pastes from the local database for every registered user or for the given user.
 .RE
 .PP
 .BR update_db 
-[\fB\-u\fR \fIUSER\fR]
-[\fB\-\-username\fR \fIUSER\fR]
+[\fB\-u\fR \fIUSER\fR, \fB\-\-username\fR \fIUSER\fR]
 .RS
 Update the local database for every registered user or for the given user.
 .RE
