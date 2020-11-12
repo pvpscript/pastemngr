@@ -125,7 +125,7 @@ class Parser:
                 help='create a new paste'
         )
         new_paste_parser.add_argument(
-                '--input-file',
+                '-i', '--input-file',
                 metavar='FILE', 
                 help='input file to upload as paste',
                 dest='input_file'
