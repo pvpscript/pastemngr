@@ -12,6 +12,21 @@ manages pastes from pastebin.com and stores informations locally about users and
 .TP
 .BR \-\-fetch-dev-key
 Request a pastebin login, fetch the account's developer key and, on success, save it locally, at the config folder. This application needs a developer key to access the pastebin API, otherwise it won't work.
+.TP
+This command is very error prone and it's probably not going to work, so you will need to get the key manually. To do so, just follow the steps below.
+.nr step 1 1
+.IP \n[step] 6
+Login to the pastebin.com website;
+.IP \n+[step]
+Access the api page;
+.IP \n+[step]
+Look for a section called "Your Unique Developer API Key";
+.IP \n+[step]
+In this section, there will be a text block containing a code with 32 characters, that looks like this: b026324c6904b2a9cb4b88d6d61c81d1. Copy the code found there;
+.IP \n+[step]
+Go to the configuration directory, create a blank file called \fBdev_key\fR and paste the code found at the pastebin site;
+.IP \n+[step]
+Save the file.
 .SH COMMANDS
 List of accepted commands
 .PP
@@ -166,6 +181,8 @@ Contains the name of the default text editor used for creating a new paste.
 (Default: nano)
 .RE
 .PP
+.SH CONFIGURATION FOLDER
+The configuration directory is located under \fI$XDG_CONFIG_HOME/pastemngr/\fR by default, or \fI$HOME/.config/pastemngr/\fR if the first is undefined.
 .SH EXPIRE
 List of avaiable expirations times
 .TP
