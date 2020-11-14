@@ -79,7 +79,7 @@ file called `dev_key` and paste the code found at the pastebin site;
 
 # Configuration
 The configuration directory is located under `$XDG_CONFIG_HOME/pastemngr/`
-by default, or `$HOME/.config/pastemngr` if the first is undefined.
+by default, or `$HOME/.config/pastemngr/` if the first is undefined.
 
 ### dev\_key file
 This file refers to the developer key used for executing operations on the
