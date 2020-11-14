@@ -72,7 +72,7 @@ by the image below;
 4. In this section, there will be a text block containing a code
 e.g. `b026324c6904b2a9cb4b88d6d61c81d1`. Copy the code found there;
 5. Go to the configuration directory, discussed below, create a blank
-file called `api_key` and paste the code found at the pastebin site;
+file called `dev_key` and paste the code found at the pastebin site;
 6. Save the file.
 
 [api-example]: https://i.imgur.com/ub52AWL.png "API key example"
