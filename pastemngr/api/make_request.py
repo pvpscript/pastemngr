@@ -19,8 +19,18 @@ class ApiConnectionError(ApiError):
 class ApiTimeout(ApiError):
     """Api request timed out"""
 
-def get():
-    pass
+def get(url, payload, parse_method):
+    try:
+        response = requests.get(url, payload)
+
+        if response.status_code != 200:
+            raise requests.HTTPError(response.status_code)
+
+        return parse_method(response.content.decode('UTF-8'))
+    except requests.ConnectionError as e:
+        raise ApiConnectionError('Couldn\'t connect', e)
+    except requests.Timeout as e:
+        raise ApiTimeout('Request timeout', e)
 
 def post(url, payload, parse_method):
     try:
