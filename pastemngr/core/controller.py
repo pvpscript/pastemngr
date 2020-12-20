@@ -348,7 +348,7 @@ class Controller:
                 paste = self.paste_text.read(paste_key)['paste']
             else:
                 paste_data = self.pastebin.fetch_any_raw_paste(paste_key)
-                paste = req.post(*paste_data)['content']
+                paste = req.get(*paste_data)['content']
 
             print(paste)
         except (req.BadApiRequestError, db.DatabaseError) as e:
