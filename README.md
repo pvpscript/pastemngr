@@ -32,7 +32,7 @@ You can install pastemngr through PyPI: `pip install pastemngr`
 ## Manual installation
 This is the process for installing pastemngr from a clone.
 ```
-git clone https://github.com/pvpscript/pastemngr
+git clone https://github.com/pvpscript/pastemngr pastemngr
 cd pastemngr
 ```
 
